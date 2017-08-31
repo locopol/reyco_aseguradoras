@@ -26,11 +26,24 @@ var $details;
     	// If a value exists, then the user account exists and is validated
     	if ( is_array($login) && count($login) == 1 ) {
         // Set the users details into the $details property of this class
-        $this->details = $login[0];
+		$this->details = $login[0];
+
+	// Establecer niveles de acceso por compañia
+
+		$this->db->select('company');
+	    	$this->db->from('user_company');
+    		$this->db->where('idUser', $this->details->id);
+
+		$company = array();
+		
+		foreach ( $this->db->get()->result() as $row )
+		 array_push($company, $row->company);
+		
+		$this->details2 = $company;
+		
         // Call set_session to set the user's session vars via CodeIgniter
         $this->set_session();
         return true;
-	
 	}
 
     	return false;
@@ -47,7 +60,7 @@ var $details;
 	    'user'=>$this->details->user,
 	    'proveedor'=>$this->details->company,
 	    'titulo'=>$this->details->title,
-           // 'name'=> $this->details->firstName . ' ' . $this->details->lastName,
+	    'company' => $this->details2,
            // 'email'=>$this->details->email,
            // 'avatar'=>$this->details->avatar,
            // 'tagline'=>$this->details->tagline,
@@ -61,7 +74,7 @@ var $details;
 	function kill_session()
 	{
 		$this->session->sess_destroy();
-		$this->session->set_userdata(array('id' => '', 'user' => '', 'isLoggedIn' => '', 'proveedor' => '', 'titulo' => ''));
+		$this->session->set_userdata(array('id' => '', 'user' => '', 'isLoggedIn' => '', 'proveedor' => '', 'titulo' => '', 'company' => ''));
 	return 0;
 
 	}

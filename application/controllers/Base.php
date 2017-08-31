@@ -18,10 +18,10 @@ class Base extends CI_Controller {
 	public function excel($base,$pattern)
 	{
 
-		$dataExcel = $this->dbmaint->search_db_excel($base,$pattern, $this->session->userdata('proveedor'));
+		$dataExcel = $this->dbmaint->search_db_excel($base,$pattern, $this->session->userdata('company'));
 
 		 if ($dataExcel)  {
-			$this->export->to_excel($this->dbmaint->search_db_excel($base,$pattern, $this->session->userdata('proveedor')),'listado');
+			$this->export->to_excel($this->dbmaint->search_db_excel($base,$pattern, $this->session->userdata('company')),'listado');
 		 } else {
 			$opcion = array('base' => 0, 'pattern' => 0,'result' => 0, 'historial' => 0, 'error' => 'No existen datos para exportar.', 'success' => '', 'login' => '');
 			$this->load->view('search', $opcion);
@@ -292,7 +292,7 @@ class Base extends CI_Controller {
 			$opcion = array('estado' => '', 'result' => 0, 'historial' => 0, 'error' => '', 'success' => '', 'login' => $login, 'pattern' => 0);
 		} else {
 
-		$sresult = $this->dbmaint->search_db($this->input->post('base'), $this->input->post('pattern'), 'F', $this->session->userdata('proveedor'));
+		$sresult = $this->dbmaint->search_db($this->input->post('base'), $this->input->post('pattern'), 'F', $this->session->userdata('company'));
 
 		if (!$sresult) {
 			$opcion = array('estado' => '', 'base' => 0, 'pattern' => 0, 'result' => 0, 'historial' => 0, 'error' => 'No se encontraron registros que coincidan con la busqueda.', 'success' => '', 'login' => '');
@@ -368,7 +368,11 @@ class Base extends CI_Controller {
 
 	public function test() {
 
-		echo "DONE!";
+		//echo "DONE!";
+		print_r($this->session->userdata('company'));
+		$var1 = $this->session->userdata('company');
+
+		echo "<br />";
 
 	}
 

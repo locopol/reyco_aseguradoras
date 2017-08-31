@@ -32,7 +32,7 @@ var dialog;
 
 $(function() {
 	$('.menu').jqsimplemenu(); 
-	$( "#selector" ).selectmenu({ width: 320 });
+	$( ".selector" ).selectmenu({ width: 320 });
 	$( "#accordion" ).accordion({heightStyle: "content", active: 0});
 	$( ".menutab" ).tabSlideOut({
       		tabHandle: ".tab",
@@ -147,8 +147,10 @@ $(function() {
 	$( ".checkbox").checkboxradio();
 	$( ".datatable" ).dataTable({"iDisplayStart": 0, "iDisplayLength": 10, "bJQueryUI": true, "sPaginationType": "full_numbers" , "bLengthChange": false, "bFilter": false,
 	"oLanguage": {
-"sEmptyTable": "Los datos estan siendo procesados en la base de datos, espere un momento e intente nuevamente."
-}
+		"sEmptyTable": "Los datos estan siendo procesados en la base de datos, espere un momento e intente nuevamente.",
+		"sInfo": "_START_ a _END_ de un total de _TOTAL_ Items",
+		"oPaginate": { sFirst:" « ", sLast:" » ", sNext:" › ",sPrevious:" ‹ "}
+        }
 	});
 	$('#button').click( function() {
 		 	$('#preloader').fadeIn('fast');

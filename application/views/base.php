@@ -99,7 +99,7 @@
 <h4 style="font-size: 15px; font-weight: bold;"><?php switch ($estado) { case 'V': echo 'Historial total de vehiculos'; break; case 'S': echo 'Vehiculos disponibles en Stock'; break; } ?></h4>
 	<div>
 
-	<?php $query=$this->dbmaint->get_lista($estado,$this->session->userdata('proveedor')); echo str_replace("\r", '',str_replace("\n", '',$this->table->generate($query))); ?><br />
+	<?php $query=$this->dbmaint->get_lista($estado,$this->session->userdata('company')); echo str_replace("\r", '',str_replace("\n", '',$this->table->generate($query))); ?><br />
 </div>
 <?php } ?>
 

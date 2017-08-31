@@ -67,7 +67,7 @@ $this->load->view('menu'); ?>
 	
 	<table border=0 class="historial_table" >
 	 <tr>
-	 	<td>ID usuario:</td><td> <input name="cp_user" type="text" ></td>
+	 	<td>ID usuario:</td><td> <input name="cp_user" type="text" ></td> 
 	 </tr>
 	 <tr>
 	 	<td>Titulo de la cuenta:</td><td> <input name="cp_title" type="text" autocomplete="off" ></td>
@@ -76,7 +76,7 @@ $this->load->view('menu'); ?>
 	  	<td>Contrase&ntilde;a:</td><td> <input id="cp_passwd" name="cp_passwd" type="password" autocomplete="off"></td>
          </tr>
          <tr>
-	  	<td>Relación de compañia:</td><td> <select id="selector" name="cp_company"> <?php foreach ($this->dbmaint->get_proveedores() as $opcion) { echo '<option>' . $opcion['proveedor'] . '</option>' . "\n\r"; } ?> </select></td>
+	  	<td>Compañia principal:</td><td> <select class="selector" name="cp_company"> <?php foreach ($this->dbmaint->get_proveedores() as $opcion) { echo '<option>' . $opcion['proveedor'] . '</option>' . "\n\r"; } ?> </select></td>
 	 </tr>
 	 <tr>
 	  <td> </td>

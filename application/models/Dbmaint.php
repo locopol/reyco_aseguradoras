@@ -116,8 +116,9 @@ class Dbmaint extends CI_Model {
 	'montomin' => trim($datos[$i])
 	);
 
-		if ($s['proveedor'] == 'BCI SEGUROS GENERALES S.A.')   $s['proveedor'] = 'BCI/ZENIT SEGUROS GENERALES S.A.';
-		if ($s['proveedor'] == 'ZENIT SEGUROS GENERALES S.A.') $s['proveedor'] = 'BCI/ZENIT SEGUROS GENERALES S.A.';
+		// solo mezclar dos cias en una (deprecated)
+		//if ($s['proveedor'] == 'BCI SEGUROS GENERALES S.A.')   $s['proveedor'] = 'BCI/ZENIT SEGUROS GENERALES S.A.';
+		//if ($s['proveedor'] == 'ZENIT SEGUROS GENERALES S.A.') $s['proveedor'] = 'BCI/ZENIT SEGUROS GENERALES S.A.';
 
 	    	if ($s['comentario'] == '') $s['comentario'] = 'Sin Comentario';
 	     	 preg_match_all("/-.$/", $s['placa'],$result);
@@ -159,12 +160,12 @@ class Dbmaint extends CI_Model {
 			break;
 		}
 
-		    if ($proveedor == 'ALL') {
+		    if ($proveedor[0] == 'ALL') {
 			$sql='select (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as Siniestro, placa as Patente, tipo as Tipo, marca as Marca, modelo as Modelo, anno as \'A&ntilde;o\', concat(\'<a href=\"' . base_url() . 'base\/historial\/\',id,\'\/' . $estado . '\/_\/_\" >Detalles<\/a>\') as Accion from stocklist WHERE estado in ?';
 			$query=$this->db->query($sql, array($estado_array));
 		    } else {
 
-			$sql='select (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as Siniestro, placa as Patente, tipo as Tipo, marca as Marca, modelo as Modelo, anno as \'A&ntilde;o\', concat(\'<a href=\"' . base_url() . 'base\/historial\/\',id,\'\/' . $estado . '\/_\/_\" >Detalles<\/a>\') as Accion from stocklist WHERE estado in (?) and proveedor = ?';
+			$sql='select (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as Siniestro, placa as Patente, tipo as Tipo, marca as Marca, modelo as Modelo, anno as \'A&ntilde;o\', concat(\'<a href=\"' . base_url() . 'base\/historial\/\',id,\'\/' . $estado . '\/_\/_\" >Detalles<\/a>\') as Accion from stocklist WHERE estado in (?) and proveedor in ?';
 			$query=$this->db->query($sql, array($estado, $proveedor));
 		    }
 		
@@ -188,14 +189,29 @@ class Dbmaint extends CI_Model {
 // activar solo cuando se busquen por codigo de remate (historial)
 //		if ($base == 'rem') { $allwhere = "{$where} = '" . $pattern . "' AND proveedor = '" . $proveedor . "'"; }
 //		else { $allwhere = "proveedor='{$proveedor}' AND {$where} LIKE '%{$pattern}%'"; }
-		$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
+//		$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
 
-		if ($proveedor == "ALL") $allwhere = "{$where} = '{$pattern}'";
+		    // valida el acceso a asistencia para una compañia (no cuenta independiente)
+//		    if ($this->session->userdata('asistencia') == 1)
+//			$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
+//		    else
+//			$allwhere = "(proveedor='" . $proveedor . "') AND {$where} LIKE '%{$pattern}%'"; 	
+
+//		$allwhere = "{$where} LIKE '%{$pattern}%'"; 	
+
+		
 
 //		if ($proveedor == "ALL") $allwhere = array($where => $pattern);
 
-		$this->db->where($allwhere,NULL,FALSE);
+//		$allwhere = "{$where} = '{$pattern}'";
 
+		$allwhere = "{$where} LIKE '%{$pattern}%'"; 	
+
+		if ($proveedor[0] != "ALL") 
+			$this->db->where_in('proveedor', $proveedor); 
+
+		$this->db->where($allwhere,NULL,FALSE);
+		
 		$query=$this->db->get('stocklist');
 
 		   if ($this->db->affected_rows() == 0)
@@ -215,15 +231,28 @@ class Dbmaint extends CI_Model {
 			case 'all': $where='estado'; break;
 		}
 		$allwhere = '';
-		$this->db->select('siniestro as \'N° Siniestro\', tipo as \'Tipo\', marca as \'Marca\', modelo as \'Modelo\', anno as \'A&ntilde;o\',  placa as \'Patente\', (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE  date_format(fecharecep, \'%d-%m-%Y\') END) as \'F. Ingreso\', ubicac as \'Ubicación\', comentario as \'Comentario a CIA\'',FALSE);
+		$this->db->select('siniestro as \'N° Siniestro\', tipo as \'Tipo\', marca as \'Marca\', modelo as \'Modelo\', anno as \'A&ntilde;o\',  placa as \'Patente\', (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE  date_format(fecharecep, \'%d-%m-%Y\') END) as \'F. Ingreso\', ubicac as \'Ubicación\', comentario as \'Comentario a CIA\', proveedor as \'Compañia\'',FALSE);
 
 // activar solo cuando se busquen por codigo de remate (historial)		
 //		if ($base == 'rem') { $allwhere = "{$where} = '" . $pattern . "' AND proveedor = '" . $proveedor . "'"; }
 //		else { $allwhere = "proveedor='" . $proveedor . "' AND {$where} LIKE '%{$pattern}%'"; }
 //
-		$allwhere = "proveedor='" . $proveedor . "' AND {$where} LIKE '%{$pattern}%'"; 
+//		$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
 
-		if ($proveedor == "ALL") $allwhere = "{$where} = '{$pattern}'";
+//		$allwhere = "proveedor='" . $proveedor . "' AND {$where} LIKE '%{$pattern}%'"; 
+
+		    // valida el acceso a asistencia para una compañia (no cuenta independiente)
+//		    if ($this->session->userdata('asistencia') == 1)
+//			$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
+//		    else
+//			$allwhere = "(proveedor='" . $proveedor . "') AND {$where} LIKE '%{$pattern}%'"; 	
+
+//		if ($proveedor == "ALL") $allwhere = "{$where} = '{$pattern}'";
+
+		$allwhere = "{$where} LIKE '%{$pattern}%'"; 	
+
+		if ($proveedor[0] != "ALL") 
+			$this->db->where_in('proveedor', $proveedor); 
 
 		$this->db->order_by("fecharecep", "desc");
 
