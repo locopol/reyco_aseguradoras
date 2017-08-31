@@ -1,0 +1,225 @@
+@charset "utf-8";
+body {
+    font: 11px "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+    background: linear-gradient(to right,darkgrey, lightgrey); /* For browsers that do not support gradients */
+    //background: url(/aseguradora_v4/images/bgsite.jpg) no-repeat fixed center; /* Standard syntax (must be last) */    
+    margin: 0;
+    padding: 0;
+    height: auto;
+    text-align: center;
+    background-size: cover;
+    
+}
+img, .noBorder {
+    border: 0;
+}
+.bz #container {
+    width: 984px;
+    background: linear-gradient(lightgrey) no-repeat fixed center;
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid lightgrey;
+    box-shadow: 8px 10px 40px -9px black;
+    border-radius: 3px;
+
+    text-align: left;
+}
+.bz #header {
+    padding: 0px;
+    padding-top: 0px;
+    border: 0px solid lightblue;
+}
+.bz #mainContent {
+    padding: 0 8px;
+    background: #FFFFA7;
+}
+.bz #footer {
+    margin-top: 1px;
+    text-align: right;
+    padding: 1px;
+		font-size: 9px;
+		font-weight: normal;
+		letter-spacing: 1px;
+}
+.title {
+    font-size: 1.3em;
+    padding: 10px 9px;
+    background: url(../images/bg_h.gif) repeat-x 0 0;
+    text-transform: uppercase;
+    color: #FFF;
+    margin: 10px 0 0 0;
+}
+h2 {
+    font-size: 1em;
+    margin-bottom: 0;
+}
+.lError {
+    color: #CC0000;
+    font-weight: bold;
+}
+.error {
+    border: 1px solid #CC0000;
+}
+.errorMsg {
+    color: #CC0000;
+    padding-left: 19.4em;
+}
+#errorBox {
+    background-color: #FFEBE8;
+    border: 1px solid #DD3C10;
+    padding: 10px;
+}
+#errorBox h2, #okBox h2, #okBox1 h2{
+    font-size: 13px;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+#errorBox p, #okBox p, #okBox1 p{
+    margin: 4px 0 0 0;
+    padding: 0;
+}
+
+#okBox a:link, #okBox a:visited, #okBox1 a:link, #okBox1 a:visited {
+	color: #E29121;
+	text-decoration: none;
+}
+
+#okBox a:active, #okBox a:hover, #okBox1 a:active, #okBox1 a:hover {
+	color: #F60;
+	text-decoration: underline;
+}
+
+#errorBox a:link, #errorBox a:visited {
+    color: #B3320D;
+    text-decoration: none;
+}
+#errorBox a:active, #errorBox a:hover {
+    color: #B3320D;
+    text-decoration: underline;
+}
+#okBox {
+    background-color: #FFF9D7;
+    border: 1px solid #E2C822;
+    padding: 10px;
+}
+table.table {border-collapse: collapse; border-spacing: 0px; margin: 0px 0px 1em 1px; width: 90%;}
+table.table th {font-family: Arial, Helvetica, sans-serif; font-size:10px; vertical-align: top; text-align: left; padding: 2px; font-weight:bold; background:url(../images/bg_th.gif) repeat-x top left; color: #FFF; border:1px solid #EDEDED;}
+table.table th a:link, table.table th a:hover, table.table th a:active, table.table th a:visited{text-decoration: none; color: blue;}
+table.table td {vertical-align: top; padding: 3px; border-collapse: collapse; border:1px solid #EDEDED;font-size:10px; }
+table.table .odd {background: #FFF;}
+#social{
+    float: right;
+}
+input, textarea {
+    border:1px solid #BDC7D8;
+    font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+    font-size: 1em;
+    padding: 3px;
+}
+select {
+    border:1px solid #BDC7D8;
+    font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+    font-size: 1em;
+    padding:2px;
+}
+fieldset ol {
+    padding: 1em 1em 0 1em;
+    list-style: none;
+   // zoom: 1;
+}
+fieldset li {
+    float: left;
+    clear: left;
+    width: 100%;
+    padding-bottom: 1em;
+    padding-left: 2em;
+}
+label {
+    float: left;
+    width: 18em;
+    margin-right: 1em;
+    text-align: right;
+    padding-top: 6px;
+}
+.fieldset {
+    border: 1px solid #CCC;
+}
+.button {
+    border-top: 1px solid #D9DFEA;
+    border-left: 1px solid #D9DFEA;
+    border-bottom: 1px solid #0E1F5B;
+    border-right: 1px solid #0E1F5B;
+    margin: 2px 0;
+    padding: 2px 15px 3px;
+    background-color:#3B5998;
+    color:#FFF;
+    font-size:11px;
+    font-family: "Lucida Grande", Tahoma, Verdana, Arial, sans-serif;
+    text-align:center;
+}
+.checkboxText {
+    vertical-align: baseline;
+}
+.tableContainer{
+	background-color: #EDEDED;
+	margin: 0;
+	padding: 8px;
+}
+.tableContainer p{
+	padding-top: 0;
+	margin-top: 0;
+}
+.menutab{
+	width: 250px;
+	border: 1px solid #333;
+	background-color: #EDEDED;
+	text-align: left;
+	font-size: 1.1em;
+	padding-left: 10px;
+}
+.menutab li{
+	line-height: 1.5em;
+}
+.apple_overlay {
+	display:none;
+	background-image:url(../images/white.png);
+	width:640px;		
+	padding:35px;
+	font-size:11px;
+}
+.apple_overlay .close {
+	background-image:url(../images/close.png);
+	position:absolute; right:5px; top:5px;
+	cursor:pointer;
+	height:35px;
+	width:35px;
+}
+#overlay {
+	background-image:url(../images/transparent.png);
+	color:#efefef;
+	height:450px;
+}
+div.contentWrap {
+	height:441px;
+	overflow-y:auto;
+}
+
+.topMenu {
+	position: relative; 
+	z-index:2;
+}
+
+.historial_table {
+	border-collapse: collapse;
+	width: 100%
+}
+
+.historial_table td, td {
+	text-align: left;
+	padding: 8px;
+}
+
+.historial_table tbody>tr:nth-child(even) {
+	background-color: #f2f2f2
+}
