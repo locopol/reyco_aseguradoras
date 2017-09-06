@@ -45,6 +45,9 @@ class Model_email extends CI_Model {
 		$this->email->from($this->config->item('smtp_from'), $this->config->item('smtp_from_name'));
 		$this->email->to($this->config->item('update_to'));
 
+		if ($this->session->userdata('email') != null) 
+			$this->email->cc($this->session->userdata('email'));
+
 		$this->email->subject('Solicitud de modificación de datos de sistema de aseguradoras.');
 
 		$message  = $this->config->item('devel_tit') . ' ha recibido la siguiente solicitud de modificación:' . "\r\n\r\n";

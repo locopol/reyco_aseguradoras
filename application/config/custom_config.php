@@ -22,7 +22,7 @@ $config['smtp_port'] = "25";
 $config['smtp_user'] = "relay@rematesreyco.cl";
 $config['smtp_pass'] = "reyco4355";
 $config['smtp_from'] = "relay@rematesreyco.cl";
-$config['smtp_from_name'] = "Sistema Aseguradoras V4";
+$config['smtp_from_name'] = "Sistema Aseguradoras Reyco";
 
 /* Notificaciones Update, incluir mas con comas */
 
@@ -34,10 +34,8 @@ $config['debug_email'] = false;
 $config['devel_name'] = 'Paul Asalgado';
 $config['devel_org'] = 'LionHeart';
 $config['devel_contact'] = 'locopol@gmail.com';
-$config['devel_ver'] = '4.3';
+$config['devel_ver'] = '4.4';
 $config['devel_lic'] = 'Reyco S.A.';
-$config['devel_tit'] = 'Sistema de Aseguradoras versión 4.0 para multiples compañias';
+$config['devel_tit'] = 'Sistema de Aseguradoras para multiples compañias.';
 
 ?>
-
-

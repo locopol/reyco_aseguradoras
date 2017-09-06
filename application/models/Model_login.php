@@ -61,7 +61,7 @@ var $details;
 	    'proveedor'=>$this->details->company,
 	    'titulo'=>$this->details->title,
 	    'company' => $this->details2,
-           // 'email'=>$this->details->email,
+            'email'=>$this->details->email,
            // 'avatar'=>$this->details->avatar,
            // 'tagline'=>$this->details->tagline,
            // 'isAdmin'=>$this->details->isAdmin,

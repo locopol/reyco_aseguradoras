@@ -57,15 +57,28 @@ class Base extends CI_Controller {
 					$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al crear cuenta, debe completar todos los campos para continuar.', 'login' => '', 'pattern' => 0);
 
 				}
+
+				elseif ($this->dbmaint->get_user_exist($this->input->post('cp_user'))) {
+					$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al crear cuenta, usuario ya existe, intente nuevamente.', 'login' => '', 'pattern' => 0); }
+
+				elseif (count($this->input->post('cp_company')) == 0) {
+					$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al crear cuenta, debe seleccionar al menos una compañia base.', 'login' => '', 'pattern' => 0); }
+
+
 				else
 				{
-					$retval = $this->dbmaint->add_user($this->input->post('cp_user'), sha1($this->input->post('cp_passwd')), $this->input->post('cp_title'), $this->input->post('cp_company'));
+					$retval = $this->dbmaint->add_user($this->input->post('cp_user'), sha1($this->input->post('cp_passwd')), $this->input->post('cp_title'), 'NOPE', $this->input->post('cp_email'));
 
-					if ($retval)
+					if ($retval) {
+						$idUser = $this->dbmaint->get_max_user_id();
+
+						foreach ($this->input->post('cp_company') as $company)
+							$this->dbmaint->add_user_company($idUser, $company);
+						
 						$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => 'Acceso de compañia (usuario: ' . $this->input->post('cp_user') . ') creado correctamente.', 'error' => '', 'login' => '', 'pattern' => 0);
-					else
+					} else {
 						$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al crear cuenta de acceso, contacte al administrador.', 'login' => '', 'pattern' => 0);
-
+					}
 				}
 
 				break;
@@ -82,11 +95,14 @@ class Base extends CI_Controller {
 					$deletedUser = $this->dbmaint->get_user($this->input->post('idUser'));
 					$retval = $this->dbmaint->del_user($this->input->post('idUser'));
 
-					if ($retval)
-						$opcion = array('estado' => 'delcp', 'historial' => '', 'result' => '', 'success' => 'Cuenta de acceso ' . $deletedUser . ' eliminada correctamente.', 'error' => '', 'login' => '', 'pattern' => 0);
-					else
-						$opcion = array('estado' => 'delcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al eliminar cuenta de acceso ' . $deletedUser . ', contacte al administrador.', 'login' => '', 'pattern' => 0);
+					if ($retval) {
+						
+						$this->dbmaint->del_user_company($this->input->post('idUser'));
 
+						$opcion = array('estado' => 'delcp', 'historial' => '', 'result' => '', 'success' => 'Cuenta de acceso ' . $deletedUser . ' eliminada correctamente.', 'error' => '', 'login' => '', 'pattern' => 0);
+					} else {
+						$opcion = array('estado' => 'delcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al eliminar cuenta de acceso ' . $deletedUser . ', contacte al administrador.', 'login' => '', 'pattern' => 0);
+					}
 				}
 				break;
 
@@ -285,20 +301,20 @@ class Base extends CI_Controller {
 		$tmpl=array('table_open' => '<table class="display datatable">');
 		$this->table->set_template($tmpl);
 
-		if (!$this->input->post('base'))
+		if (!$this->input->get('base'))
 		{
 			if ($oklogin) $login = 'Bienvenido ' . $this->session->userdata('titulo') . ', Utilice las funciones disponibles en el bot&oacute;n Men&uacute.'; else $login = '';
 			
 			$opcion = array('estado' => '', 'result' => 0, 'historial' => 0, 'error' => '', 'success' => '', 'login' => $login, 'pattern' => 0);
 		} else {
 
-		$sresult = $this->dbmaint->search_db($this->input->post('base'), $this->input->post('pattern'), 'F', $this->session->userdata('company'));
+		$sresult = $this->dbmaint->search_db($this->input->get('base'), $this->input->get('pattern'), 'F', $this->session->userdata('company'));
 
 		if (!$sresult) {
 			$opcion = array('estado' => '', 'base' => 0, 'pattern' => 0, 'result' => 0, 'historial' => 0, 'error' => 'No se encontraron registros que coincidan con la busqueda.', 'success' => '', 'login' => '');
 
 		} else {
-			$opcion = array('estado' => '', 'base' => $this->input->post('base'), 'pattern' => $this->input->post('pattern'), 'result' => $sresult, 'historial' => 0, 'error' => '', 'success' => 'Se encontraron ' . $sresult->num_rows() . ' registros en la busqueda, para exportar, seleccione la opcion de menu Exportar a Excel', 'login' => '');
+			$opcion = array('estado' => '', 'base' => $this->input->get('base'), 'pattern' => $this->input->get('pattern'), 'result' => $sresult, 'historial' => 0, 'error' => '', 'success' => 'Se encontraron ' . $sresult->num_rows() . ' registros en la busqueda, para exportar, seleccione la opcion de menu Exportar a Excel', 'login' => '');
 
 		}
 
@@ -343,6 +359,9 @@ class Base extends CI_Controller {
 
 		if ($retval) {
 			$this->model_email->send_mail_update($item);
+				if ($this->config->item('debug_email') == true)
+					return 0;
+			
 			redirect(base_url() . 'base/historial/' . $id . '/S/update/success');
 		} else {
 			redirect(base_url() . 'base/historial/' . $id . '/S/update/error');

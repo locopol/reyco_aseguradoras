@@ -414,10 +414,10 @@ class Dbmaint extends CI_Model {
 	}
 
 
-	function add_user($user, $passwd, $title, $company)
+	function add_user($user, $passwd, $title, $company, $email)
 	{
-		$sql = "INSERT INTO user VALUES  (0,?,?,?,?)";
-		$this->db->query($sql, array($user,$passwd,$company, $title)); 
+		$sql = "INSERT INTO user VALUES  (0,?,?,?,?,?)";
+		$this->db->query($sql, array($user,$passwd,$company, $title, $email)); 
 
 		if ($this->db->affected_rows() == 0)
 			return 0;
@@ -461,8 +461,57 @@ class Dbmaint extends CI_Model {
 
 	}
 
+	function get_user_exist($user) {
+		$sql='select user from user where user = ?';
+		$query=$this->db->query($sql, array($user));
+
+	  	 if ($this->db->affected_rows() == 0)
+			return 0;
+
+		return 1;
+
+	}
+
+
+	function get_max_user_id() {
+		$sql='select max(id) as id from user';
+		$query=$this->db->query($sql);
+
+	  	 if ($this->db->affected_rows() == 0)
+			return 0;
+
+		$result=$query->result();
+		return $result[0]->id;
+
+	}
+
+	//pend (MODO MULTICOMPANY)
+	function add_user_company($idUser, $company)
+	{
+		$sql = "INSERT INTO user_company VALUES  (0,?,?)";
+		$this->db->query($sql, array($idUser,$company)); 
+
+		if ($this->db->affected_rows() == 0)
+			return 0;
+		
+		return 1;
+	}
+
+	function del_user_company($idUser) {
+		$sql = "DELETE FROM user_company where idUser = ?";
+
+		$query=$this->db->query($sql, array($idUser));
+
+		if ($this->db->affected_rows() == 0)
+		 return 0;
+	
+		return 1;
+
+	}
+	
+
 	function get_users_del() {
-		$sql='select user as Usuario, title as \'Descripci&oacute;n\', company as \'Compa&ntilde;ia\', concat(\'<button id=btn_del class=btn_del value=\', id, \'>Eliminar<\/button>\') as Accion from user WHERE user not in (\'admin\',\'lionheart\')';
+		$sql='select user as Usuario, title as \'Descripci&oacute;n\', case when email is null then \'No registra\' else email end as \'Correo electronico\', concat(\'<button id=btn_del class=btn_del value=\', id, \'>Eliminar<\/button>\') as Accion from user WHERE user not in (\'admin\',\'lionheart\')';
 		$query=$this->db->query($sql);
 
 	  	 if ($this->db->affected_rows() == 0)
@@ -473,7 +522,7 @@ class Dbmaint extends CI_Model {
 	}
 
 	function get_users_pwd() {
-		$sql='select user as Usuario, title as \'Descripci&oacute;n\', company as \'Compa&ntilde;ia\', concat(\'<button id=btn_pwd class=btn_pwd value=\', id, \'>Cambiar contrase&ntilde;a<\/button>\') as Accion from user';
+		$sql='select user as Usuario, title as \'Descripci&oacute;n\', case when email is null then \'No registra\' else email end as \'Correo electronico\', concat(\'<button id=btn_pwd class=btn_pwd value=\', id, \'>Cambiar contrase&ntilde;a<\/button>\') as Accion from user';
 		$query=$this->db->query($sql);
 
 	  	 if ($this->db->affected_rows() == 0)

@@ -57,7 +57,7 @@ $this->load->view('menu'); ?>
 
 ?>
 
-<h4 style="font-size: 15px; font-weight: bold;">Agregar nueva compañia</h4>
+<h4 style="font-size: 15px; font-weight: bold;">Agregar nuevo acceso a compa&ntilde;ia</h4>
 	<div>
 
 <fieldset style="border-radius: 5px">
@@ -76,9 +76,14 @@ $this->load->view('menu'); ?>
 	  	<td>Contrase&ntilde;a:</td><td> <input id="cp_passwd" name="cp_passwd" type="password" autocomplete="off"></td>
          </tr>
          <tr>
-	  	<td>Compañia principal:</td><td> <select class="selector" name="cp_company"> <?php foreach ($this->dbmaint->get_proveedores() as $opcion) { echo '<option>' . $opcion['proveedor'] . '</option>' . "\n\r"; } ?> </select></td>
+	  	<td>Compa&ntilde;ias autorizadas: <br /><p style="font-size: 9px"> (usar CTRL para selección multiple) </p></td><td> <select multiple name="cp_company[]"> <?php foreach ($this->dbmaint->get_proveedores() as $opcion) { echo '<option>' . $opcion['proveedor'] . '</option>' . "\n\r"; } ?> </select></td>
 	 </tr>
 	 <tr>
+         <tr>
+	  	<td> Email de notificación :</td><td> <input id="cp_email" name="cp_email" type="text"></td>
+	 </tr>
+	 <tr>
+
 	  <td> </td>
 	   <td><input id="button" type="submit" value="Crear acceso de compa&ntilde;ia"></td>
 	 </tr>
@@ -93,7 +98,7 @@ $this->load->view('menu'); ?>
 	case 'delcp':
 ?>
 
-<h4 style="font-size: 15px; font-weight: bold;">Eliminar compañia</h4>
+<h4 style="font-size: 15px; font-weight: bold;">Eliminar acceso de compa&ntilde;ia</h4>
 <div>
 
 	<div>
@@ -103,7 +108,7 @@ $this->load->view('menu'); ?>
 
 
   <!-- aqui va la confirmación de eliminación -->
-      <div id="dialog" title="Confirmación">
+      <div id="dialog" title="Confirmaci&oacute;n">
 	<br />
 	<fieldset style="border-radius: 5px">
 	  	¿Esta seguro de eliminar la cuenta?
@@ -121,7 +126,7 @@ $this->load->view('menu'); ?>
 	case 'pwdcp':
 ?>
 
-<h4 style="font-size: 15px; font-weight: bold;">Cambiar contraseña compañia</h4>
+<h4 style="font-size: 15px; font-weight: bold;">Cambiar contrase&ntilde;a de acceso</h4>
 <div>
 
 	<div>

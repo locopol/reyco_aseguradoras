@@ -119,7 +119,7 @@ $this->load->view('menu'); ?>
 	 <h4 style="font-size: 15px; font-weight: bold;">Criterios de busqueda</h4> 
 
 	<div>
-<?php echo form_open('search'); ?>
+<?php echo form_open('search', array('method' => 'GET')); ?>
 <table border=0>
  <tr>
   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

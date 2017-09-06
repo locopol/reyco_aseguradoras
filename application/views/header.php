@@ -47,7 +47,7 @@ $(function() {
     	});
 	$( "#button" ).button();
 
-<?php if($estado != '0' ) { ?>
+<?php if($estado != '0' && $estado != 'delcp' && $estado != 'pwdcp') { ?>
 	dialog = $( "#dialog" ).dialog({
 	    dialogClass: "ui-re-shadow no-close-dialog",
 	    autoOpen: false,
@@ -181,7 +181,7 @@ $(function() {
 	position:absolute;
 	left:50%; /* centers the loading animation horizontally one the screen */
 	top:50%; /* centers the loading animation vertically one the screen */
-	background-image: url(/aseguradora_v4/images/loading2.gif); /* path to your loading animation */
+	background-image: url(/aseguradoras/images/loading2.gif); /* path to your loading animation */
 	background-repeat:no-repeat;
 	background-position:center;
 	margin:-100px 0 0 -100px; /* is width and height divided by two */

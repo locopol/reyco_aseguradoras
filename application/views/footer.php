@@ -4,7 +4,7 @@
 	if ($this->session->userdata('isLoggedIn') && $this->session->userdata('proveedor') == 'ALL') 
 		$footer_string .= ' - Nombre de usuario: ' . $this->session->userdata('user') . ' - Compa&ntilde;ia: Todas las compa&ntilde;ias';
 	if ($this->session->userdata('isLoggedIn') && $this->session->userdata('proveedor') != 'ALL')
-		$footer_string .= ' - Nombre de usuario: ' . $this->session->userdata('user') . ' - Compa&ntilde;ia: ' . $this->session->userdata('proveedor');
+		$footer_string .= ' - Nombre de usuario: ' . $this->session->userdata('user') . ' - Descripci&oacute;n: ' . $this->session->userdata('titulo');
 	 $footer_string .= '&nbsp;&nbsp;';
 
 	echo $footer_string;
