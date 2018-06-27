@@ -2,8 +2,6 @@
 
 class Model_fotos extends CI_Model {
 
-	//var $activo;
-
 	function __construct()
 	{
 		// Llamar al constructor de CI_Model
@@ -64,7 +62,8 @@ class Model_fotos extends CI_Model {
 			}
 
 
-}
+		
+		}
 
 				if($retval)
 					if ($retval2)
@@ -80,11 +79,9 @@ class Model_fotos extends CI_Model {
 
 	 return $error;
 
-
 	}
 
 	function del_imgs($pat) {
-
 
 		if (is_dir($this->config->item('ldir') . $pat)) {
 		    	foreach (scandir($this->config->item('ldir') . $pat) as $item) {
@@ -98,7 +95,7 @@ class Model_fotos extends CI_Model {
 			return 0;
 		}
 
-		return 1;
+	return 1;
 			
 	}
 
@@ -155,6 +152,7 @@ class Model_fotos extends CI_Model {
 	}
 
 	function delete_fotos_media() {
+		
 		$x = 0;
 
 		if (is_dir($this->config->item('ldir'))) {
@@ -166,7 +164,7 @@ class Model_fotos extends CI_Model {
 			return 0;
 		}
 
-		return ($x-2);
+	return ($x-2);
 			
 	}
 
@@ -204,12 +202,13 @@ class Model_fotos extends CI_Model {
 			  $retval = 0;
 
 		}
-		else
-		{
+		
+		else {
 			return 0;
 		}
 
-		return $retval;
+	return $retval;
+	
 	}
 
 	function check_video_path($pat) {
@@ -238,10 +237,9 @@ class Model_fotos extends CI_Model {
 			return 0;
 		}
 
-		return $retval;
+	return $retval;
+
 	}
-
-
 
 	function get_msg($id) 
 	{

@@ -1,7 +1,7 @@
 <?php if(!$this->session->userdata('isLoggedIn')) redirect(base_url() . 'login'); ?>
 
 <fieldset style="border-radius: 5px">
- <legend style="font-size: 14px; font-weight: bold">N° DE INVENTARIO: <?php echo $historial['inventario']; if($historial['estado']=="Vendido") { echo ' / VEHICULO REMATADO'; } else { echo '/ VEHICULO EN STOCK'; } ?><?php if ($historial['proveedor'] == 'ASISTENCIA') echo '/ PROVIENE DE ASISTENCIA'; ?></legend>
+ <legend style="font-size: 14px; font-weight: bold">N° DE INVENTARIO: <?php echo $historial['inventario']; if($historial['estado']=="Vendido") { echo ' / VEHICULO REMATADO'; } else { echo '/ VEHICULO EN STOCK'; } ?><?php if ($historial['proveedor'] == 'ASISTENCIA') echo '/ PROVIENE DE ASISTENCIA'; if ((($estado == 'S' || $estado == 'F') && $feedback == 1) && $historial['estado']!="Vendido") { echo ' / MODIFICACIÓN DE DATOS EN CURSO'; } ?></legend>
 
 <fieldset style="border-radius: 5px">
  <legend>Antecedentes del Item</legend>

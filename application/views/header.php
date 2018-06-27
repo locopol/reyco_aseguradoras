@@ -53,8 +53,8 @@ $(function() {
 	    autoOpen: false,
 	    modal: true,
 	    position: { my: "top+25%", at: "center top"},
-		    width: 440,
-		    height:280,
+		    width: 520,
+		    height:360,
       	show: {
         	effect: "fade",
        		duration: 500
@@ -81,6 +81,7 @@ $(function() {
 
 
 <?php } } ?>
+
 
 <?php if ($estado == 'delcp') { ?>
 	
@@ -145,13 +146,14 @@ $(function() {
 
 
 	$( ".checkbox").checkboxradio();
-	$( ".datatable" ).dataTable({"iDisplayStart": 0, "iDisplayLength": 10, "bJQueryUI": true, "sPaginationType": "full_numbers" , "bLengthChange": false, "bFilter": false,
+	var table = $( "#datatable" ).DataTable({"iDisplayStart": 0, "iDisplayLength": 10, "bJQueryUI": true, "sPaginationType": "full_numbers" , "bLengthChange": false, "bFilter": false,
 	"oLanguage": {
 		"sEmptyTable": "Los datos estan siendo procesados en la base de datos, espere un momento e intente nuevamente.",
 		"sInfo": "_START_ a _END_ de un total de _TOTAL_ Items",
 		"oPaginate": { sFirst:" « ", sLast:" » ", sNext:" › ",sPrevious:" ‹ "}
         }
 	});
+
 	$('#button').click( function() {
 		 	$('#preloader').fadeIn('fast');
 			$('#status').fadeIn('fast');

@@ -10,4 +10,3 @@
 	echo $footer_string;
 ?>
 </div>
-

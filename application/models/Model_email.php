@@ -37,6 +37,8 @@ class Model_email extends CI_Model {
 		else
 			$item['val_prox_remate'] = 'No';
 
+
+
 		$connection = @fsockopen( $this->config->item('smtp_host'),  $this->config->item('smtp_port'));
 		if (is_resource($connection))
 		{
@@ -48,7 +50,7 @@ class Model_email extends CI_Model {
 		if ($this->session->userdata('email') != null) 
 			$this->email->cc($this->session->userdata('email'));
 
-		$this->email->subject('Solicitud de modificación de datos de sistema de aseguradoras.');
+		$this->email->subject('(Siniestro ' . $item['val_siniestro'] . ') solicitud de modificación aseguradoras.');
 
 		$message  = $this->config->item('devel_tit') . ' ha recibido la siguiente solicitud de modificación:' . "\r\n\r\n";
 		$message .= ' - Numero de inventario: ' . $item['idInventario'] . "\r\n";
@@ -59,7 +61,8 @@ class Model_email extends CI_Model {
 		$message .= '  - Compañia: ' . $item['val_proveedor'] . "\r\n\r\n";
 		$message .= ' - Nuevo Monto Indemnizado: ' . $item['val_monto_indemnizado'] . "\r\n";
 		$message .= ' - Nuevo Monto Minimo: ' .  $item['val_monto_minimo'] . "\r\n";
-		$message .= ' - Incluir en proximo remate?: ' . $item['val_prox_remate']  . "\r\n\r\n";
+		$message .= ' - Incluir en proximo remate?: ' . $item['val_prox_remate']  . "\r\n";
+		$message .= ' - Comentario de compañia: ' .  $item['val_comentario'] . "\r\n\r\n";
 		$message .= 'Correo generado automaticamente por ' . $this->config->item('smtp_from_name');
 
 		$this->email->message($message);

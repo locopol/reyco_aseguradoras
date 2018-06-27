@@ -83,6 +83,9 @@ $this->load->view('menu'); ?>
 	  	<td> Email de notificación :</td><td> <input id="cp_email" name="cp_email" type="text"></td>
 	 </tr>
 	 <tr>
+	  	<td> Permitir modificaciones :</td><td> <input type="checkbox" name="cp_update"></td>
+	 </tr>
+	 <tr>
 
 	  <td> </td>
 	   <td><input id="button" type="submit" value="Crear acceso de compa&ntilde;ia"></td>

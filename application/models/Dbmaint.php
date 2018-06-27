@@ -2,8 +2,6 @@
 
 class Dbmaint extends CI_Model {
 
-	//var $activo;
-
 	function __construct()
 	{
 		// Llamar al constructor de CI_Model
@@ -14,8 +12,7 @@ class Dbmaint extends CI_Model {
 		// $tcampos = 22;
 		// Version 3
 		// $tcampos = 23;
-		// Version 4
-		   $this->tcampos = 30;
+		// Version 4 (En custom_config)
 	
 	}
 
@@ -60,7 +57,7 @@ class Dbmaint extends CI_Model {
 			$i = 0;
 			$total = count($datos);
 			
-			if ($linea == 0 && $total != $this->tcampos ) {
+			if ($linea == 0 && $total != $this->config->item('filedata_tcampos') ) {
 				/* salir si cabeceras no corresponden al largo correcto */
 				unlink('./application/logs/cargaarchivo.pid');
 				fclose($gestor);
@@ -70,17 +67,13 @@ class Dbmaint extends CI_Model {
 			      	/* Eliminar Registros de Stock Actual */
 				$this->db->empty_table('stocklist');
 			
-			//} elseif ($datos[0] == null) {
-				 //nothing, corresponde al ultimo salto de linea puesto en el insumo (enviar corrección a mario)
-			//	 $linea--;
-			
 			} else {
 			
  	   	$folders = array();
 		$texto = '';
 		$fecha = date('Y-m-d H:i:s');
 
-//Estado|Tipo Vehiculo|Marca|Modelo|Color|Inventario|Siniestro|Placa|Anno|Chasis|Motor|Dueño Ant.|Rut Dueño Ant.|Funcionando|Nº Remate|Nº Lote|Con Documento|Con Llave|Liquidador|Condicionado|Proveedor|Nº Liquidación|Fecha Liq.|Fecha Recep.|Ubicacion|Comentario Cia.|Fecha Remate|Monto Adjudicado|Monto Indemnizado|Monto Minimo
+//Estado|Tipo Vehiculo|Marca|Modelo|Color|Inventario|Siniestro|Placa|Anno|Chasis|Motor|Dueño Ant.|Rut Dueño Ant.|Funcionando|Nº Remate|Nº Lote|Con Documento|Con Llave|Liquidador|Condicionado|Proveedor|Nº Liquidación|Fecha Liq.|Fecha Recep.|Ubicacion|Comentario Cia.|Fecha Remate|Monto Adjudicado|Monto Indemnizado|Monto Minimo|numfac
 	$s = array(
 	'created_at' => $fecha,
 	'updated_at' => $fecha,
@@ -113,13 +106,10 @@ class Dbmaint extends CI_Model {
 	'fecharemate' => $datos[$i] == '' ? null[$i++] :  date("Y-m-d",strtotime(str_replace('/','-',$datos[$i++]))),
 	'montoadj' => trim($datos[$i++]),
 	'montoindem' => trim($datos[$i++]),
-	'montomin' => trim($datos[$i])
+	'montomin' => trim($datos[$i++]),
+	'numfac' => trim($datos[$i])
 	);
-
-		// solo mezclar dos cias en una (deprecated)
-		//if ($s['proveedor'] == 'BCI SEGUROS GENERALES S.A.')   $s['proveedor'] = 'BCI/ZENIT SEGUROS GENERALES S.A.';
-		//if ($s['proveedor'] == 'ZENIT SEGUROS GENERALES S.A.') $s['proveedor'] = 'BCI/ZENIT SEGUROS GENERALES S.A.';
-
+	
 	    	if ($s['comentario'] == '') $s['comentario'] = 'Sin Comentario';
 	     	 preg_match_all("/-.$/", $s['placa'],$result);
 		
@@ -152,6 +142,7 @@ class Dbmaint extends CI_Model {
 	function get_lista($estado, $proveedor) {
 
 		switch ($estado) {
+
 		case 'V':
 			$estado_array = array('V','R');
 			break;
@@ -173,7 +164,6 @@ class Dbmaint extends CI_Model {
 
 	}
 
-
 	function search_db($base,$pattern,$estado,$proveedor) {
 
 		switch ($base) {
@@ -186,24 +176,27 @@ class Dbmaint extends CI_Model {
 		$allwhere = '';
 		$this->db->select('(CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE  date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as \'Siniestro\', placa as \'Patente\', tipo as \'Tipo\', marca as \'Marca\', modelo as \'Modelo\', anno as \'A&ntilde;o\', concat(\'<a href="' . base_url() . 'base\/historial\/\',id,\'\/' . $estado . '\/_\/_">Detalles<\/a>\') as \'Accion\'',FALSE);
 
-// activar solo cuando se busquen por codigo de remate (historial)
-//		if ($base == 'rem') { $allwhere = "{$where} = '" . $pattern . "' AND proveedor = '" . $proveedor . "'"; }
-//		else { $allwhere = "proveedor='{$proveedor}' AND {$where} LIKE '%{$pattern}%'"; }
-//		$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
+		/* activar solo cuando se busquen por codigo de remate (historial) */
+
+/*		
+		if ($base == 'rem') { $allwhere = "{$where} = '" . $pattern . "' AND proveedor = '" . $proveedor . "'"; }
+		else { $allwhere = "proveedor='{$proveedor}' AND {$where} LIKE '%{$pattern}%'"; }
+		$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
 
 		    // valida el acceso a asistencia para una compañia (no cuenta independiente)
-//		    if ($this->session->userdata('asistencia') == 1)
-//			$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
-//		    else
-//			$allwhere = "(proveedor='" . $proveedor . "') AND {$where} LIKE '%{$pattern}%'"; 	
+		    if ($this->session->userdata('asistencia') == 1)
+			$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
+		    else
+			$allwhere = "(proveedor='" . $proveedor . "') AND {$where} LIKE '%{$pattern}%'"; 	
 
-//		$allwhere = "{$where} LIKE '%{$pattern}%'"; 	
+		$allwhere = "{$where} LIKE '%{$pattern}%'"; 	
 
 		
 
-//		if ($proveedor == "ALL") $allwhere = array($where => $pattern);
+		if ($proveedor == "ALL") $allwhere = array($where => $pattern);
 
-//		$allwhere = "{$where} = '{$pattern}'";
+		$allwhere = "{$where} = '{$pattern}'";
+*/
 
 		$allwhere = "{$where} LIKE '%{$pattern}%'"; 	
 
@@ -233,21 +226,25 @@ class Dbmaint extends CI_Model {
 		$allwhere = '';
 		$this->db->select('siniestro as \'N° Siniestro\', tipo as \'Tipo\', marca as \'Marca\', modelo as \'Modelo\', anno as \'A&ntilde;o\',  placa as \'Patente\', (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE  date_format(fecharecep, \'%d-%m-%Y\') END) as \'F. Ingreso\', ubicac as \'Ubicación\', comentario as \'Comentario a CIA\', proveedor as \'Compañia\'',FALSE);
 
-// activar solo cuando se busquen por codigo de remate (historial)		
-//		if ($base == 'rem') { $allwhere = "{$where} = '" . $pattern . "' AND proveedor = '" . $proveedor . "'"; }
-//		else { $allwhere = "proveedor='" . $proveedor . "' AND {$where} LIKE '%{$pattern}%'"; }
-//
-//		$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
+		/* activar solo cuando se busquen por codigo de remate (historial)		*/
 
-//		$allwhere = "proveedor='" . $proveedor . "' AND {$where} LIKE '%{$pattern}%'"; 
+/*
+		if ($base == 'rem') { $allwhere = "{$where} = '" . $pattern . "' AND proveedor = '" . $proveedor . "'"; }
+		else { $allwhere = "proveedor='" . $proveedor . "' AND {$where} LIKE '%{$pattern}%'"; }
+
+		$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
+
+		$allwhere = "proveedor='" . $proveedor . "' AND {$where} LIKE '%{$pattern}%'"; 
 
 		    // valida el acceso a asistencia para una compañia (no cuenta independiente)
-//		    if ($this->session->userdata('asistencia') == 1)
-//			$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
-//		    else
-//			$allwhere = "(proveedor='" . $proveedor . "') AND {$where} LIKE '%{$pattern}%'"; 	
+		    if ($this->session->userdata('asistencia') == 1)
+			$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
+		    else
+			$allwhere = "(proveedor='" . $proveedor . "') AND {$where} LIKE '%{$pattern}%'"; 	
 
-//		if ($proveedor == "ALL") $allwhere = "{$where} = '{$pattern}'";
+		if ($proveedor == "ALL") $allwhere = "{$where} = '{$pattern}'";
+
+*/
 
 		$allwhere = "{$where} LIKE '%{$pattern}%'"; 	
 
@@ -307,7 +304,6 @@ class Dbmaint extends CI_Model {
 	function get_patentes_stock () {
 
 		$sql='select placa from stocklist where placa not in (select placa from fotos) and estado = \'S\'';
-			
 		$query=$this->db->query($sql);
 
 		return $query;
@@ -322,8 +318,7 @@ class Dbmaint extends CI_Model {
 		return $query;
 	}
 
-
-	function add_reg_update($values) {
+	function add_reg_feedback($values) {
 
 		//Insertar directamente para mantener registro de cambios
 	
@@ -332,6 +327,9 @@ class Dbmaint extends CI_Model {
 			'val_monto_indemnizado' => $values['val_monto_indemnizado'],
 			'val_monto_minimo' => $values['val_monto_minimo'],
 			'val_prox_remate' => $values['val_prox_remate'],
+			'val_comentario' => $values['val_comentario'],
+			'fileupload' => '',
+			'fileupload_sent' => false,
 			'status_update' => false,
 			'created_at' => date('Y-m-d H:i:s'),
 			'updated_at' => date('Y-m-d H:i:s')
@@ -339,67 +337,65 @@ class Dbmaint extends CI_Model {
 
 		$this->db->insert('stocklist_feedback', $s); 
 	
-		 if ($this->db->affected_rows() == 0)
+		if ($this->db->affected_rows() == 1)
+		{
+			$this->db->select_max('id');
+			$query=$this->db->get('stocklist_feedback');
+			$result=$query->result();
+			$this->db->set('fileupload', $this->config->item('fileupload_name') . '_' . $result[0]->id . '_' . $s['idInventario'] . '_' . strtotime($s['created_at']) . '.csv');
+			$this->db->where('id',$result[0]->id);
+			$this->db->update('stocklist_feedback');
+
+			return $result[0]->id;
+		
+		}
+
+		 return 0;
+	}
+
+	function get_upload_pendientes() {
+		$this->db->select('id, fileupload');
+		$this->db->where('fileupload_sent',false);
+		$query=$this->db->get('stocklist_feedback');
+		$result=$query->result();
+
+		if (!$result)
 			return 0;
 
-		 return 1;
+		return $result;
 	}
 
-	function upd_reg_update($idInventario, $col, $value) {
-
-		$sql = 'UPDATE stocklist_feedback SET ' . $col . ' = ?, updated_at = ? WHERE idInventario = ?';
-
-		$query=$this->db->query($sql, array($value, date('Y-m-d H:i:s'), $idInventario));
-
-		if ($this->db->affected_rows() == 0)
-			 return 0;
-	
-		return 1;
-	}
-
-	function get_reg_update($idInventario, $col) {
-		$this->db->select($col);
-		$this->db->where('idInventario',$idInventario);
+	function get_upload_enviados() {
+		$this->db->select('id, fileupload');
+		$this->db->where('fileupload_sent',true);
+		$this->db->where('status_update', false);
 		$query=$this->db->get('stocklist_feedback');
 		$result=$query->result();
 
 		if (!$result)
 			return 0;
 		
-		return $result[0]->$col;
+		return $result;
 	}
 
-	function del_reg_update ($idInventario) {
-		$sql = "DELETE FROM stocklist_feedback where idInventario = ?";
+	function get_status_feedback($idInventario) {
+		$this->db->select_max('id');
+		$this->db->where('idInventario', $idInventario);
+		$query=$this->db->get('stocklist_feedback');
+		$result=$query->result();
 
-		$query=$this->db->query($sql, array($idInventario));
+		if ($result[0]->id) {
+			$this->db->select('id,idInventario, fileupload_sent, status_update');
+			$this->db->where('id', $result[0]->id);
+			$query=$this->db->get('stocklist_feedback');
+			$result=$query->result();
 
-		if ($this->db->affected_rows() == 0)
-		 return 0;
-	
-		return 1;
-
-	}
-
-	function upd_feedback () {
-
-		$sql = "select a.id from stocklist_feedback a, stocklist b where a.idInventario = b.inventario and a.val_monto_indemnizado = b.montoindem and a.val_monto_minimo = b.montomin";
-
-		$query=$this->db->query($sql);
-
-		if ($this->db->affected_rows() == 0) {
-			return 0;
+			return $result[0];
 		}
 		else {
-			$sql = "delete from stocklist_feedback where id in ?";
-			$query=$this->db->query($sql, $query->result_array());
-
-			if ($this->db->affected_rows() == 0) 
-				return 0;
-
-			return 1;
+			return 0;
 		}
-
+		
 	}
 
 	function get_proveedores () {
@@ -413,11 +409,10 @@ class Dbmaint extends CI_Model {
 			return $query->result_array();
 	}
 
-
-	function add_user($user, $passwd, $title, $company, $email)
+	function add_user($user, $passwd, $title, $company, $email, $update)
 	{
-		$sql = "INSERT INTO user VALUES  (0,?,?,?,?,?)";
-		$this->db->query($sql, array($user,$passwd,$company, $title, $email)); 
+		$sql = "INSERT INTO user VALUES  (0,?,?,?,?,?,?)";
+		$this->db->query($sql, array($user,$passwd,$company, $title, $email, $update)); 
 
 		if ($this->db->affected_rows() == 0)
 			return 0;
@@ -472,7 +467,6 @@ class Dbmaint extends CI_Model {
 
 	}
 
-
 	function get_max_user_id() {
 		$sql='select max(id) as id from user';
 		$query=$this->db->query($sql);
@@ -485,9 +479,7 @@ class Dbmaint extends CI_Model {
 
 	}
 
-	//pend (MODO MULTICOMPANY)
-	function add_user_company($idUser, $company)
-	{
+	function add_user_company($idUser, $company) {
 		$sql = "INSERT INTO user_company VALUES  (0,?,?)";
 		$this->db->query($sql, array($idUser,$company)); 
 
@@ -509,7 +501,6 @@ class Dbmaint extends CI_Model {
 
 	}
 	
-
 	function get_users_del() {
 		$sql='select user as Usuario, title as \'Descripci&oacute;n\', case when email is null then \'No registra\' else email end as \'Correo electronico\', concat(\'<button id=btn_del class=btn_del value=\', id, \'>Eliminar<\/button>\') as Accion from user WHERE user not in (\'admin\',\'lionheart\')';
 		$query=$this->db->query($sql);

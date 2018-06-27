@@ -62,7 +62,7 @@ var $details;
 	    'titulo'=>$this->details->title,
 	    'company' => $this->details2,
             'email'=>$this->details->email,
-           // 'avatar'=>$this->details->avatar,
+            'allow_update'=>$this->details->allow_update,
            // 'tagline'=>$this->details->tagline,
            // 'isAdmin'=>$this->details->isAdmin,
            // 'teamId'=>$this->details->teamId,

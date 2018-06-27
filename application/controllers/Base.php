@@ -9,14 +9,13 @@ class Base extends CI_Controller {
 		$this->load->helper(array('form','url','file'));
 		$this->load->database();
 		$this->load->library(array('session','table','ftp','export'));
-		$this->load->model(array('dbmaint','model_fotos', 'model_email'));
-		$tmpl=array('table_open' => '<table class="display datatable">');
+		$this->load->model(array('dbmaint','model_fotos', 'model_email','model_update','model_doctos'));
+		$tmpl=array('table_open' => '<table id="datatable" class="display">');
 		$this->table->set_template($tmpl);
 
 	}
 
-	public function excel($base,$pattern)
-	{
+	public function excel($base,$pattern) {
 
 		$dataExcel = $this->dbmaint->search_db_excel($base,$pattern, $this->session->userdata('company'));
 
@@ -53,6 +52,11 @@ class Base extends CI_Controller {
 				if($this->input->post('cp_title') == '')
 					$status += 1;
 
+				if($this->input->post('cp_update') == 'on')
+					$cp_update = 1;
+				else
+					$cp_update = 0;
+
 				if ($status >=1) {
 					$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al crear cuenta, debe completar todos los campos para continuar.', 'login' => '', 'pattern' => 0);
 
@@ -67,7 +71,7 @@ class Base extends CI_Controller {
 
 				else
 				{
-					$retval = $this->dbmaint->add_user($this->input->post('cp_user'), sha1($this->input->post('cp_passwd')), $this->input->post('cp_title'), 'NOPE', $this->input->post('cp_email'));
+					$retval = $this->dbmaint->add_user($this->input->post('cp_user'), sha1($this->input->post('cp_passwd')), $this->input->post('cp_title'), 'NOPE', $this->input->post('cp_email'), $cp_update);
 
 					if ($retval) {
 						$idUser = $this->dbmaint->get_max_user_id();
@@ -142,18 +146,35 @@ class Base extends CI_Controller {
 	
 	}
 
-	public function clearcache()
-	{
+	public function clearcache($level = '', $hash = '') {
 
-		$result = 'Limpieza de cache multimedia ejecutado: registros eliminados: ' . $this->model_fotos->delete_fotos_reg() . ', carpetas eliminadas: ' . $this->model_fotos->delete_fotos_media() . '.';
+		if($hash == $this->config->item('hash_batch') || $this->session->userdata('isLoggedIn')) {
+
+		// Limpiar y calcular
+
+		$result_rbase = $this->model_fotos->delete_fotos_reg() +  $this->model_doctos->delete_doctos_reg();
+		$result_files = $this->model_fotos->delete_fotos_media() + $this->model_doctos->delete_doctos_media();
+
+		$result = 'Limpieza de cache multimedia ejecutado: registros eliminados: ' . $result_rbase . ', carpetas eliminadas: ' . $result_files . '.';
 		$opcion = array('estado' => 'S', 'historial' => '', 'result' => '', 'error' => '', 'success' => $result, 'login' => '', 'pattern' => 0);
 
-		$this->load->view('base', $opcion);
+			if ($level == 0)
+				echo($result);
+
+			if ($level == 1)
+				$this->load->view('base', $opcion);
+
+		}
+
+		else {
+			$opcion = array('estado' => 'S', 'historial' => '', 'result' => '', 'error' => '', 'success' => 'No se realiza ninguna acción.', 'login' => '', 'pattern' => 0);
+			$this->load->view('base', $opcion);
+		
+		}
 
 	}
 
 	public function historial($id,$estado,$msgtype = "_",$msg = "_") {
-
 
 	$error = ''; $success = '';
 	
@@ -191,7 +212,6 @@ class Base extends CI_Controller {
 	// modificar fechas vacias (null)
 
 	// NOPE SIRVE!!!!
-
 	
 	if ($this->dbmaint->get_value_of_col($id,'siniestro') != 'NOPE') {
 	// NOPE NOPE NOPE NOPE NOPE NOPE NOPE NOPE! xD
@@ -236,19 +256,25 @@ class Base extends CI_Controller {
 		'fecharemate' => $fecharemate,
 		'montoadj' => $this->dbmaint->get_value_of_col($id,'montoadj'),
 		'montoindem' => $this->dbmaint->get_value_of_col($id,'montoindem'),
-		'montomin' => $this->dbmaint->get_value_of_col($id,'montomin')
+		'montomin' => $this->dbmaint->get_value_of_col($id,'montomin'),
+		'numfac' => $this->dbmaint->get_value_of_col($id,'numfac')
 		);
 
+		//  validar si registro esta a la espera de actualizacion (feedback)
 
-		//  validar si registro esta a la espera de actualizacion (feedback)	
-	
-		if ( $this->dbmaint->get_reg_update($result['inventario'],'idInventario') == $result['inventario']) {
-				$feedback = 1;
-		} else {
-				$feedback = 0;
-		}
-		//$this->output->cache(5);
+		$result_feedback = $this->dbmaint->get_status_feedback($result['inventario']);
 		
+		if ($result_feedback)
+			if($result_feedback->fileupload_sent == true)
+				if($result_feedback->status_update == true)
+					$feedback=0;
+				else
+					$feedback=1;
+			else
+				$feedback=1;
+		else 
+			$feedback = 0;
+
 	} else {
 
 		$estado = 0;
@@ -267,9 +293,13 @@ class Base extends CI_Controller {
 		$this->load->view('base', $opcion);
 
 	}
+	
 	}
 
-	public function dbmaint() {
+	public function dbmaint($level = '', $hash = '') {
+
+		if($hash == $this->config->item('hash_batch') || $this->session->userdata('isLoggedIn')) {
+
 		//carga datos
 		$retval = $this->dbmaint->carga_archivo();
 
@@ -290,16 +320,24 @@ class Base extends CI_Controller {
 				break;
 		}
 
+			if ($level == 0)
+				echo($opcion['success'] == '' ? $opcion['error'] : $opcion['success']);
 
-		$this->load->view('search', $opcion);
+			if ($level == 1)
+				$this->load->view('search', $opcion);
 
+		}
+
+		else {
+
+			$opcion = array('estado' => 'S', 'historial' => '', 'result' => '', 'error' => '', 'success' => 'No se realiza ninguna acción.', 'login' => '', 'pattern' => 0);
+			$this->load->view('base', $opcion);
+		
+		}
 	
 	}
 
 	public function search($oklogin = '') {
-
-		$tmpl=array('table_open' => '<table class="display datatable">');
-		$this->table->set_template($tmpl);
 
 		if (!$this->input->get('base'))
 		{
@@ -318,63 +356,8 @@ class Base extends CI_Controller {
 
 		}
 
-
 		}
 			$this->load->view('search', $opcion);
-	}
-
-
-	public function update_send($id) {
-
-		// genera Item
-
-		if ($this->input->post('idInventario')) {
-
-		$item = array(
-			'idInventario' => $this->input->post('idInventario'),
-			'val_monto_indemnizado' => str_replace('.','', $this->input->post('val_monto_indemnizado')),
-			'val_monto_minimo' => str_replace('.','', $this->input->post('val_monto_minimo')),
-			'val_prox_remate' => $this->input->post('val_prox_remate'),
-			'val_old_monto_indemnizado' => $this->dbmaint->get_value_of_col($id, 'montoindem'),
-			'val_old_monto_minimo' => $this->dbmaint->get_value_of_col($id, 'montomin'),
-			'val_proveedor' => $this->dbmaint->get_value_of_col($id, 'proveedor'),
-			'val_placa' => $this->dbmaint->get_value_of_col($id, 'placa'),
-			'val_marca' => $this->dbmaint->get_value_of_col($id, 'marca'),
-			'val_modelo' => $this->dbmaint->get_value_of_col($id, 'modelo'),
-			'val_anno' => $this->dbmaint->get_value_of_col($id, 'anno'));
-
-		if ($this->input->post('val_prox_remate') == 'on')
-			$item['val_prox_remate'] = true;
-		else
-			$item['val_prox_remate'] = false;
-
-		// insertar los registros almacenados
-
-		if ($item['val_monto_indemnizado'] == $item['val_old_monto_indemnizado'] && $item['val_monto_minimo'] == $item['val_old_monto_minimo']) {
-			redirect(base_url() . 'base/historial/' . $id . '/S/update/check'); }
-		else {
-	
-		
-		$retval = $this->dbmaint->add_reg_update(array('idInventario' => $item['idInventario'], 'val_monto_indemnizado' => $item['val_monto_indemnizado'], 'val_monto_minimo' => $item['val_monto_minimo'], 'val_prox_remate' => $item['val_prox_remate']));
-
-		if ($retval) {
-			$this->model_email->send_mail_update($item);
-				if ($this->config->item('debug_email') == true)
-					return 0;
-			
-			redirect(base_url() . 'base/historial/' . $id . '/S/update/success');
-		} else {
-			redirect(base_url() . 'base/historial/' . $id . '/S/update/error');
-		}
-
-		}
-
-		} else
-		{
-			redirect(base_url() . 'base/historial/' . $id . '/S/update/nodata');
-
-		}
-
 	}
 
 	public function devel() {
@@ -382,17 +365,11 @@ class Base extends CI_Controller {
 		show_error('Sistema desarrollado por: ' . $this->config->item('devel_name') . ' (' . $this->config->item('devel_org') . ')' . 
 	        ', Desarrollo licenciado para: ' . $this->config->item('devel_lic') . ', Version de desarrollo: ' . $this->config->item('devel_ver') . '<br /><br />Nombre del desarrollo: ' . $this->config->item('devel_tit') . '. <br /><br /> Cualquier reproduccion o modificacion sobre este software se encuentra estrictamente prohibido sin previa autorizacion del desarrollador, no se autoriza replica, copia, extraccion y uso de las funciones de este, la licencia de uso se proporciona solo para el cliente indicado en este mensaje.'	);
 
-
 	}
 
 	public function test() {
 
-		//echo "DONE!";
-		print_r($this->session->userdata('company'));
-		$var1 = $this->session->userdata('company');
-
-		echo "<br />";
-
+		echo "NOPE!";
 	}
 
 }

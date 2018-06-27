@@ -31,7 +31,10 @@ div.box
 {
     position: absolute;
     z-index: -1;
-    background-color: #cccccc;
+   	border: 1px solid #77d5f7;
+	background: #0078ae url("images/ui-bg_glass_45_0078ae_1x400.png") 50% 50% repeat-x;
+	font-weight: bold;
+	color: #fff;
     left: 0;
     top: 0;
     border-radius: 4px 4px 0px 0px;
@@ -57,6 +60,7 @@ li.right-menu > a
 }
 .menu a.selected
 {
+    border: 1px solid #77d5f7;
     background-color: #cccccc;
     border-radius: 0px 4px 4px 4px;
     -moz-border-radius: 0px 4px 4px 4px;
@@ -74,7 +78,11 @@ li.right-menu > a
     display: none;
     width: 200px;
     top: 2.5em; /*padding-right: 10px;*/
-    background-color: #cccccc; /*-moz-opacity: .50;     filter: alpha(opacity=50);     opacity: .50;*/
+ // background-color: #cccccc; /*-moz-opacity: .50;     filter: alpha(opacity=50);     opacity: .50;*/
+    border: 1px solid #77d5f7;
+    background: #0078ae url("images/ui-bg_glass_45_0078ae_1x400.png") repeat-x;
+    font-weight: normal;
+    color: #fff;
     border-radius: 0px 4px 4px 4px;
     -moz-border-radius: 0px 4px 4px 4px;
     -webkit-border-radius: 0px 4px 4px 4px;
@@ -105,10 +113,13 @@ li.right-menu > a
 }
 .menu-item-selected > a
 {
-    background-color: #838383;
-    -moz-opacity: .50;
-    filter: alpha(opacity=50);
-    opacity: .50;
+background: #6eac2c url("images/ui-bg_gloss-wave_50_6eac2c_500x100.png") 50% 50% repeat-x;
+font-weight: normal;
+color: #ffffff;
+ //    background-color: #838383;
+ //   -moz-opacity: .50;
+ //  filter: alpha(opacity=50);
+ //  opacity: .50;
 }
 .menu-item-selected > a:hover
 {

@@ -58,19 +58,6 @@ $this->load->view('menu'); ?>
 <?php if($historial) { ?>
 
 <h4 style="font-size: 15px; font-weight: bold;">Antecedentes del Vehiculo
-
-<?php if ($historial['estado'] == 'Stock' && $feedback == 0) { ?>
-<button id="button_edit" style="margin-top: -.25em; margin-right: 1.7em;" onclick="dialog.dialog('open');">
-	<i class="ui-icon ui-icon-mail-open" style="float:left; margin-top: 0.2em; margin-left: -0.5em"></i><span style="font-size: 12px; float: left; margin-left: 0.5em;margin-bottom: 0.4em">Solicitar modificaci&oacute;n de datos</span>
-</button>
-<?php } elseif ($historial['estado'] == 'Stock' && $feedback == 1) { ?>
-<button id="button_edit" style="margin-top: -.25em; margin-right: 1.7em;" disabled>
-	<i class="ui-icon ui-icon-mail-open" style="float:left; margin-top: 0.2em; margin-left: -0.5em"></i><span style="font-size: 12px; float: left; margin-left: 0.5em;margin-bottom: 0.4em">Solicitud de modificaci&oacute;n de datos enviada</span>
-</button>
-
-
-<?php } ?>
-
 </h4>
 
 	<div>
@@ -85,7 +72,7 @@ $this->load->view('menu'); ?>
 	<br />
 	<fieldset style="border-radius: 5px">
 	  <legend>Ingrese los datos requeridos a modificar</legend>
-		<?php echo form_open('update_send/' . $historial['id'], array('id' => 'update_send')); ?>
+		<?php echo form_open('update/update_send/' . $historial['id'], array('id' => 'update_send')); ?>
 		<input type="hidden" name="idInventario" value="<?php echo $historial['inventario']; ?>">
 		<table border=0 style="padding: 0px">
    		<tr>

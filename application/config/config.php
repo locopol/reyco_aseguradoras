@@ -35,7 +35,7 @@ $config['base_url'] = 'http://localhost:8080/aseguradoras';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'base';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
