@@ -52,6 +52,7 @@ class Update extends CI_Controller {
 
 		if ($retval) {
 			$this->model_update->genera_upload($retval);
+			$this->model_update->trx_upload();
 			$this->model_email->send_mail_update($item);
 				if ($this->config->item('debug_email') == true)
 					return 0;

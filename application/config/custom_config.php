@@ -24,7 +24,7 @@ $config['pdir_pdf'] = 'pdf/'; 		# relative path web
 
 $config['fileupload_ldir']      = "c:\\devel\\reyco\\aseguradoras\\upload\\"; # Directorio de carga
 $config['fileupload_rdir']      = "/Upload/"; 		# Directorio de carga remoto
-$config['fileupload_name']      = 'aseguradora_upload'; # Nombre del archivo
+$config['fileupload_name']      = 'UPL'; # Nombre del archivo
 $config['fileupload_procesado'] = '.procesado'; 	# identificacion de archivo procesado
 $config['fileupload_debug']     = FALSE; 		# Activar debug para procesamiento de archivos
 

@@ -342,7 +342,7 @@ class Dbmaint extends CI_Model {
 			$this->db->select_max('id');
 			$query=$this->db->get('stocklist_feedback');
 			$result=$query->result();
-			$this->db->set('fileupload', $this->config->item('fileupload_name') . '_' . $result[0]->id . '_' . $s['idInventario'] . '_' . strtotime($s['created_at']) . '.csv');
+			$this->db->set('fileupload', $this->config->item('fileupload_name') . '_' . $s['idInventario'] . '_' . strtotime($s['created_at']) . '.csv');
 			$this->db->where('id',$result[0]->id);
 			$this->db->update('stocklist_feedback');
 

@@ -63,6 +63,7 @@ class Model_email extends CI_Model {
 		$message .= ' - Nuevo Monto Minimo: ' .  $item['val_monto_minimo'] . "\r\n";
 		$message .= ' - Incluir en proximo remate?: ' . $item['val_prox_remate']  . "\r\n";
 		$message .= ' - Comentario de compañia: ' .  $item['val_comentario'] . "\r\n\r\n";
+		$message .= 'Este cambio se procesará automaticamente en el sistema de remates cuando se revise la información del vehiculo.' . "\r\n\r\n";
 		$message .= 'Correo generado automaticamente por ' . $this->config->item('smtp_from_name');
 
 		$this->email->message($message);
