@@ -43,7 +43,7 @@
 	  
 <?php if ($this->session->userdata('proveedor') == 'ALL') { ?>
 
-	<li><a href="#">Administraci&oacute;n</a>
+	<li><a href="#">Admin</a>
 	 <ul>
 	   <li><a href="<?php echo base_url() . 'base/usrmaint/addcp'; ?>">Crear acceso para compa&ntilde;ia</a></li>
 	   <li><a href="<?php echo base_url() . 'base/usrmaint/delcp'; ?>">Eliminar acceso para compa&ntilde;ia</a></li>

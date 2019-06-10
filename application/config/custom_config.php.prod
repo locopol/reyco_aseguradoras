@@ -4,11 +4,11 @@
 
 $config['filedata_dir']     = '/home/rematesr/'; # ruta del archivo de datos
 $config['filedata_name']    = 'aseguradora_v4.csv'; # Nombre del archivo
-$config['filedata_tcampos'] = 31; # Largo de columnas del archivo CSV
+$config['filedata_tcampos'] = 37; # Largo de columnas del archivo CSV
 
-/* configuración de conexión FTP al repositorio de imagenes */
+/* configuracion de conexión FTP al repositorio de imagenes */
 
-$config['hostname']  = '200.29.162.210'; 	# ftp hostname
+$config['hostname']  = 'reyco.mine.nu'; 	# ftp hostname
 $config['username']  = 'user_rematesr_integr';	# ftp username
 $config['password']  = 'reyco4355';		# ftp password
 $config['rdir']      = '/fotos/'; 		# ftp remote path
@@ -18,7 +18,11 @@ $config['debug_ftp'] = FALSE;			# ftp debugging
 
 /* Configuracion para documentos PDF */
 
-$config['rdir_pdf'] = '/doctos/procesados/'; 			# ftp remote path
+$config['hostname_pdf'] = '200.73.6.197';
+$config['username_pdf']	= 'OMUNOZ';	# ftp username
+$config['password_pdf']	= 'Reyco.2241';# ftp password
+
+$config['rdir_pdf'] = '/remates/FAE_BSOFT/02/pdf/'; 			# ftp remote path
 $config['ldir_pdf'] = '/home/rematesr/public_html/aseguradoras/pdf/';  # ftp upload path
 $config['pdir_pdf'] = 'pdf/'; 		# relative path web 
 
@@ -43,14 +47,14 @@ $config['update_to']   = 'gdeferari@rematesreyco.cl, carmijo@rematesreyco.cl, mc
 $config['debug_email'] = false;
 
 /* MD5 para ccron */
-$config['hash_batch'] = '3559a7e033fcfddf7f9657d3123d7823c403fced';
+$config['hash_batch'] = '3559a7e033fcfddf7f9657d3321d7823c403fced';
 
 /* CopyRight */
 
 $config['devel_name']    = 'Paul Asalgado';
 $config['devel_org']     = 'LionHeart';
 $config['devel_contact'] = 'paul.asalgado.ruz@gmail.com';
-$config['devel_ver']     = '4.5';
+$config['devel_ver']     = '4.6';
 $config['devel_lic']     = 'Reyco S.A.';
 $config['devel_tit']     = 'Sistema de Aseguradoras para multiples compañias.';
 
