@@ -46,22 +46,46 @@
  <tr style="font-size: 12px;">
 	<td>VIN / Chasis: <?php echo $historial['chassis']; ?></td>
 	<td>Motor: <?php echo $historial['motor']; ?></td>
-	<td>Doctos y Llaves?: <?php echo $historial['condocumento'] . ' y ' . $historial['conllave']; ?></td>
+	<td>Lugar Fisico: <?php echo $historial['ubicafisica']; ?></td>
 
  </tr>
 </table>
 </fieldset>
 
-<fieldset style="border-radius: 5px">
+<fieldset style="border-radius: 5px; width: 450px; float: left;">
  <legend>Comentarios a compa&ntilde;ia</legend>
 
-<textarea rows=2 cols=120><?php echo $historial['comentario']; ?></textarea>
+<textarea rows=2 cols=60><?php echo $historial['comentario']; ?></textarea>
 
 </fieldset>
 
+<fieldset style="border-radius: 5px; width: auto;">
+ <legend>Datos adicionales</legend>
+
+<table class="historial_table" width="100%">
+	<colgroup>
+        <col width="40%" />
+        <col width="10%" />
+        <col width="30%" />
+        <col width="20%" />
+    </colgroup>
+ <tr style="font-size: 10px;">
+	<td>Permiso de circulacion:</td><td><b><?php echo $historial['pcircula']; ?></b></td> 
+	<td>Mandato:</td> <td><b><?php echo $historial['mandato']; ?></b></td>
+ </tr>
+ <tr style="font-size: 10px;">
+	<td>Revision tecnica:</b></td><td><b><?php echo $historial['rtecnica']; ?></b></td>
+	<td>Llaves:</td><td><b><?php echo $historial['conllave2']; ?></b></td>
+ </tr>
+</table>
+
+
+</fieldset>
+
+
 <?php if($historial['estado']=="Stock") { ?>
 
-<fieldset style="border-radius: 5px">
+<fieldset style="border-radius: 5px; float: left; width: 876px">
 <legend>
 
 <div style="display: inline-block; line-height: 1.2;">

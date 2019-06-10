@@ -107,7 +107,12 @@ class Dbmaint extends CI_Model {
 	'montoadj' => trim($datos[$i++]),
 	'montoindem' => trim($datos[$i++]),
 	'montomin' => trim($datos[$i++]),
-	'numfac' => trim($datos[$i])
+	'numfac' => trim($datos[$i++]),
+	'pcircula' => trim($datos[$i++]),
+	'rtecnica' => trim($datos[$i++]),
+	'conllave2' => trim($datos[$i++]),
+	'mandato' => trim($datos[$i++]),
+	'ubicafisica' => trim($datos[$i])
 	);
 	
 	    	if ($s['comentario'] == '') $s['comentario'] = 'Sin Comentario';
@@ -261,6 +266,67 @@ class Dbmaint extends CI_Model {
 			return 0;
 
 		return $query;
+
+	}
+
+	function get_value_row($id) {
+
+		$query = $this->db->get_where('stocklist', array('id' => $id));
+		$result=$query->row_array();
+		
+		if (isset($result))
+		{
+
+			switch ($result['estado']) {
+
+			case 'V':
+					$result['estado'] = 'Vendido';
+					break;
+			case 'S': 
+					$result['estado'] = 'Stock';
+					break;
+			case 'R': 
+					$result['estado'] = 'Reparado';
+					break;
+			}
+
+			if ($result['funciona'] == 'S') $result['funciona'] = 'Si'; 
+			else $result['funciona'] = 'No';
+
+			if($result['condocumento'] == 'S') $result['condocumento'] = 'Si';
+			else $result['condocumento'] = 'No';
+			
+			if($result['conllave'] == 'S') $result['conllave'] = 'Si';
+			else $result['conllave'] = 'No'; 
+			
+			if ($result['condicionado'] = 'S') $result['condicionado'] = 'Si';
+			else $result['condicionado'] = 'No';
+
+			if ($result['pcircula'] == 'S') $result['pcircula'] = 'Si'; 
+			else $result['pcircula'] = 'No';
+
+			if ($result['rtecnica'] == 'S') $result['rtecnica'] = 'Si'; 
+			else $result['rtecnica'] = 'No';
+
+			if ($result['conllave2'] == 'S') $result['conllave2'] = 'Si'; 
+			else $result['conllave2'] = 'No';
+
+			if ($result['mandato'] == 'S') $result['mandato'] = 'Si'; 
+			else $result['mandato'] = 'No';
+
+			if($result['fecharecep'] == '') $result['fecharecep'] = 'Sin fecha'; else $result['fecharecep'] = date("d-m-Y", strtotime($result['fecharecep']));
+
+			if($result['fechaliq'] == '') $result['fechaliq'] = 'Sin fecha'; else $result['fechaliq'] = date("d-m-Y", strtotime($result['fechaliq']));
+			if($result['fecharemate'] == '') $result['fecharemate'] = 'Sin fecha'; else $result['fecharemate']=date("d-m-Y", strtotime($result['fecharemate']));;
+		
+			if ( count($result['liquidador']) <= 1)  $result['liquidador'] = 'Sin Asignar';
+			if ( count($result['duennoant']) <= 1)  $result['duennoant'] = 'Sin Registro';
+			if ( count($result['rutduennoant']) <= 1)  $result['rutduennoant'] = 'Sin Registro';
+			if ( count($result['ubicafisica']) <= 1)  $result['ubicafisica'] = 'Sin Asignar';
+ 		
+		}
+
+	return $result;
 
 	}
 
