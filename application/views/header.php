@@ -5,12 +5,13 @@
 <title>Sistema de aseguradora de vehiculos</title>
 <script src="<?php echo base_url();?>js/jquery-1.10.1.min.js"></script> 
 <script src="<?php echo base_url();?>js/jquery-ui.min.js"></script>
-<script src="<?php echo base_url();?>js/jquery-tabs.js"></script>
+
 
 <script src="<?php echo base_url();?>js/jquery.datatables.min.js"></script>
 <script src="<?php echo base_url();?>js/blueimp-gallery.min.js"></script>
 <script src="<?php echo base_url();?>js/jqsimplemenu.js"></script>
 <script src="<?php echo base_url();?>js/jquery.number.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <link href="<?php echo base_url();?>css/blueimp-gallery.min.css" rel="stylesheet" type="text/css">
 <link href="<?php echo base_url();?>css/jquery.datatables_themeroller.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url();?>css/jquery-ui.min.css" rel="stylesheet"/>
@@ -31,20 +32,11 @@
 var dialog;
 
 $(function() {
+
 	$('.menu').jqsimplemenu(); 
 	$( ".selector" ).selectmenu({ width: 320 });
 	$( "#accordion" ).accordion({heightStyle: "content", active: 0});
-	$( ".menutab" ).tabSlideOut({
-      		tabHandle: ".tab",
-      		pathToTabImage: "<?php echo base_url();?>images/menu.png",
-      		imageHeight: "37px",
-      		imageWidth: "77px",
-      		tabLocation: "top",
-      		speed: 300,
-      		action: "click",
-      		leftPos: "650px",
-      		fixedPosition: true
-    	});
+
 	$( "#button" ).button();
 
 <?php if($estado != '0' && $estado != 'delcp' && $estado != 'pwdcp') { ?>

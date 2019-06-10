@@ -41,10 +41,10 @@ class Model_fotos extends CI_Model {
 			foreach ($list as $rfile) {
 
 				$lfile = str_replace($this->config->item('rdir') . $pat, '', $rfile);
-				$efile = explode(".", strtolower($lfile));
+				$efile = pathinfo(strtolower($lfile), PATHINFO_EXTENSION);
 			
-		if(count($efile) == 2) {
-			if(($efile[1] == 'jpg' || $efile[1] == 'jpeg' || $efile[1] == 'png' || $efile[1] == 'bmp') && $x <6)    
+		if($efile) {
+			if(($efile == 'jpg' || $efile == 'jpeg' || $efile == 'png' || $efile == 'bmp') && $x <6)    
 			{
 				$retval = $this->ftp->download($rfile, $this->config->item('ldir') . $pat . $lfile, 'binary');
 				$config['source_image'] = $this->config->item('ldir') . $pat . $lfile;
@@ -55,14 +55,12 @@ class Model_fotos extends CI_Model {
 
 			}
 
-			if ($efile[1] == 'mp4' || $efile[1] == 'ogv' || $efile[1] == 'webm')
+			if ($efile == 'mp4' || $efile == 'ogv' || $efile == 'webm')
 			{
 
 				$retval = $this->ftp->download($rfile, $this->config->item('ldir') . $pat . $lfile, 'binary');
 			}
-
-
-		
+	
 		}
 
 				if($retval)

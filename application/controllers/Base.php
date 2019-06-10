@@ -174,7 +174,7 @@ class Base extends CI_Controller {
 
 	}
 
-	public function historial($id,$estado,$msgtype = "_",$msg = "_") {
+	public function historial($id = -1,$estado = -1,$msgtype = "_",$msg = "_") {
 
 	$error = ''; $success = '';
 	
@@ -209,57 +209,14 @@ class Base extends CI_Controller {
 			$error = 'Solicitud no procesada, intente nuevamente.'; }	
 	}	
 
-	// modificar fechas vacias (null)
-
 	// NOPE SIRVE!!!!
 	
 	if ($this->dbmaint->get_value_of_col($id,'siniestro') != 'NOPE') {
 	// NOPE NOPE NOPE NOPE NOPE NOPE NOPE NOPE! xD
-	
-		if ($this->dbmaint->get_value_of_col($id,'fecharecep') == 'N/A') $fecharecep="Sin fecha";
-		else $fecharecep = date("d-m-Y", strtotime($this->dbmaint->get_value_of_col($id,'fecharecep')));
 
- 		if ($this->dbmaint->get_value_of_col($id,'fechaliq') == 'N/A') $fechaliq="Sin fecha";
-		else $fechaliq = date("d-m-Y", strtotime($this->dbmaint->get_value_of_col($id,'fechaliq')));
-
-		if ($this->dbmaint->get_value_of_col($id,'fecharemate') == 'N/A') $fecharemate="Sin fecha";
-		else $fecharemate = date("d-m-Y", strtotime($this->dbmaint->get_value_of_col($id,'fecharemate')));
-
-		$result = array(
-		'id' => $id,
-		'estado' => $this->dbmaint->get_value_of_col($id,'estado'),
-        	'tipo' => $this->dbmaint->get_value_of_col($id,'tipo'),
-        	'marca' => $this->dbmaint->get_value_of_col($id,'marca'),
-      	 	'modelo' => utf8_decode($this->dbmaint->get_value_of_col($id,'modelo')),
-       		'color' => utf8_decode($this->dbmaint->get_value_of_col($id,'color')),
-        	'inventario' => $this->dbmaint->get_value_of_col($id,'inventario'),
-        	'siniestro' => $this->dbmaint->get_value_of_col($id,'siniestro'),
-        	'placa' => $this->dbmaint->get_value_of_col($id,'placa'),
-        	'anno' => $this->dbmaint->get_value_of_col($id,'anno'),
-        	'chassis' => $this->dbmaint->get_value_of_col($id,'chassis'),
-		'motor' => $this->dbmaint->get_value_of_col($id,'motor'),
-		'duennoant' => utf8_decode($this->dbmaint->get_value_of_col($id,'duennoant')),
-		'rutduennoant' => $this->dbmaint->get_value_of_col($id,'rutduennoant'),
-		'funciona' => $this->dbmaint->get_value_of_col($id,'funciona'),
-		'numremate' => $this->dbmaint->get_value_of_col($id,'numremate'),
-		'numlote' => $this->dbmaint->get_value_of_col($id,'numlote'),
-		'condocumento' => $this->dbmaint->get_value_of_col($id,'condocumento'),
-		'conllave' => $this->dbmaint->get_value_of_col($id,'conllave'),
-		'liquidador' => utf8_decode($this->dbmaint->get_value_of_col($id,'liquidador')),
-		'condicionado' => $this->dbmaint->get_value_of_col($id,'condicionado'),
-		'numliq' => $this->dbmaint->get_value_of_col($id,'numliq'),
-		'fechaliq' => $fechaliq,
-		'fecharecep' => $fecharecep,
-		'ubicac' => utf8_decode($this->dbmaint->get_value_of_col($id,'ubicac')),
-		'comentario' => utf8_decode($this->dbmaint->get_value_of_col($id,'comentario')),
-		'proveedor' => utf8_decode($this->dbmaint->get_value_of_col($id,'proveedor')),
-		'fecharemate' => $fecharemate,
-		'montoadj' => $this->dbmaint->get_value_of_col($id,'montoadj'),
-		'montoindem' => $this->dbmaint->get_value_of_col($id,'montoindem'),
-		'montomin' => $this->dbmaint->get_value_of_col($id,'montomin'),
-		'numfac' => $this->dbmaint->get_value_of_col($id,'numfac')
-		);
-
+		// Obtener arreglo con datos completos
+		// 
+		$result = $this->dbmaint->get_value_row($id);
 		//  validar si registro esta a la espera de actualizacion (feedback)
 
 		$result_feedback = $this->dbmaint->get_status_feedback($result['inventario']);
@@ -369,7 +326,7 @@ class Base extends CI_Controller {
 
 	public function test() {
 
-		echo "NOPE!";
+		print_r($this->dbmaint->get_value_row(25351621));
 	}
 
 }
