@@ -319,10 +319,10 @@ class Dbmaint extends CI_Model {
 			if($result['fechaliq'] == '') $result['fechaliq'] = 'Sin fecha'; else $result['fechaliq'] = date("d-m-Y", strtotime($result['fechaliq']));
 			if($result['fecharemate'] == '') $result['fecharemate'] = 'Sin fecha'; else $result['fecharemate']=date("d-m-Y", strtotime($result['fecharemate']));;
 		
-			if ( count($result['liquidador']) <= 1)  $result['liquidador'] = 'Sin Asignar';
-			if ( count($result['duennoant']) <= 1)  $result['duennoant'] = 'Sin Registro';
-			if ( count($result['rutduennoant']) <= 1)  $result['rutduennoant'] = 'Sin Registro';
-			if ( count($result['ubicafisica']) <= 1)  $result['ubicafisica'] = 'Sin Asignar';
+			if ( strlen($result['liquidador']) <= 1)  $result['liquidador'] = 'Sin Asignar';
+			if ( strlen($result['duennoant']) <= 1)  $result['duennoant'] = 'Sin Registro';
+			if ( strlen($result['rutduennoant']) <= 1)  $result['rutduennoant'] = 'Sin Registro';
+			if ( strlen($result['ubicafisica']) <= 1)  $result['ubicafisica'] = 'Sin Asignar';
  		
 		}
 
