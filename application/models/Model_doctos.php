@@ -25,9 +25,9 @@ class Model_doctos extends CI_Model {
 		$error = 0;
 		$retval = 0;
 		$x = 0;$y = 0;
-   		$config['hostname'] = $this->config->item('hostname');
-        	$config['username'] = $this->config->item('username');
-        	$config['password'] = $this->config->item('password');
+   		$config['hostname'] = $this->config->item('hostname_pdf');
+        	$config['username'] = $this->config->item('username_pdf');
+        	$config['password'] = $this->config->item('password_pdf');
         	$config['port']     = 21;  
         	$config['passive']  = FALSE;
         	$config['debug']    = $this->config->item('debug_ftp');

@@ -46,7 +46,7 @@
  <tr style="font-size: 12px;">
 	<td>VIN / Chasis: <?php echo $historial['chassis']; ?></td>
 	<td>Motor: <?php echo $historial['motor']; ?></td>
-	<td>Lugar Fisico: <?php echo $historial['ubicafisica']; ?></td>
+	<td><b>Lugar Fisico: <?php echo $historial['ubicafisica']; ?></b></td>
 
  </tr>
 </table>
