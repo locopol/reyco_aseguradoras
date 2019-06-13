@@ -34,7 +34,8 @@ class Update extends CI_Controller {
 			'val_placa' => $this->dbmaint->get_value_of_col($id, 'placa'),
 			'val_marca' => $this->dbmaint->get_value_of_col($id, 'marca'),
 			'val_modelo' => $this->dbmaint->get_value_of_col($id, 'modelo'),
-			'val_anno' => $this->dbmaint->get_value_of_col($id, 'anno'));
+			'val_anno' => $this->dbmaint->get_value_of_col($id, 'anno'),
+			'val_siniestro' => $this->dbmaint->get_value_of_col($id, 'siniestro'));
 
 		if ($this->input->post('val_prox_remate') == 'on')
 			$item['val_prox_remate'] = true;

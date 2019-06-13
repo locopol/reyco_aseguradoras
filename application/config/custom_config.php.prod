@@ -43,7 +43,7 @@ $config['smtp_from_name'] = 'Sistema Aseguradoras Reyco';
 
 /* Notificaciones Update, incluir mas con comas */
 
-$config['update_to']   = 'gdeferari@rematesreyco.cl, carmijo@rematesreyco.cl, mcabrera@rematesreyco.cl, pbauerle@rematesreyco.cl';
+$config['update_to']   = 'gdeferari@rematesreyco.cl, carmijo@rematesreyco.cl, pbauerle@rematesreyco.cl';
 $config['debug_email'] = false;
 
 /* MD5 para ccron */
