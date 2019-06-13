@@ -26,7 +26,7 @@ class Update extends CI_Controller {
 			'val_monto_indemnizado' => str_replace('.','', $this->input->post('val_monto_indemnizado')),
 			'val_monto_minimo' => str_replace('.','', $this->input->post('val_monto_minimo')),
 			'val_prox_remate' => $this->input->post('val_prox_remate'),
-			'val_comentario' => $this->input->post('val_comentario'),
+			'val_comentario' => str_replace(array("\r\n", "\r", "\n"), " ", $this->input->post('val_comentario')),
 			'val_old_monto_indemnizado' => $this->dbmaint->get_value_of_col($id, 'montoindem'),
 			'val_old_monto_minimo' => $this->dbmaint->get_value_of_col($id, 'montomin'),
 			'val_old_comentario' => $this->dbmaint->get_value_of_col($id, 'comentario'),
@@ -35,7 +35,7 @@ class Update extends CI_Controller {
 			'val_marca' => $this->dbmaint->get_value_of_col($id, 'marca'),
 			'val_modelo' => $this->dbmaint->get_value_of_col($id, 'modelo'),
 			'val_anno' => $this->dbmaint->get_value_of_col($id, 'anno'),
-			'val_siniestro' => $this->dbmaint->get_value_of_col($id, 'siniestro'));
+			'val_siniestro' => $this->dbmaint->get_value_of_col($id,'siniestro'));
 
 		if ($this->input->post('val_prox_remate') == 'on')
 			$item['val_prox_remate'] = true;
@@ -91,8 +91,8 @@ class Update extends CI_Controller {
 
 			}
 
-			if ($level == 0)
-				echo($result);
+			if ($level == 0) { log_message('debug', $result);
+				echo($result); }
 
 			if ($level == 1)
 				$this->load->view('search', $opcion);

@@ -21,17 +21,31 @@ class Model_update extends CI_Model {
 	
 		if ($this->db->affected_rows() != 0) {
 	 
-			$outfile_csv = fopen($this->config->item('fileupload_ldir') . $result_feedback[0]->fileupload, 'w');
+			$outfile_csv = fopen($this->config->item('fileupload_ldir') . $result_feedback[0]->fileupload, 'wb');
 
-		// genera arreglo
+		// genera arreglo 
+		// DESCARTADO POR VALORES FIJOS EN CSV, DEBIDO A QUE putcsv NO ESCRIBE CORRECTAMENTE LOS VALORES CERRADOS ENTRE COMILLAS
+		// COOREGIR EN PROX VERSION
 
+/*
 		$feedback_upload = array(
 			array('id','idInventario','val_montoindem','val_montomin','val_prox_remate','val_comentario'),
 			array($result_feedback[0]->id , $result_feedback[0]->idInventario, $result_feedback[0]->val_monto_indemnizado, $result_feedback[0]->val_monto_minimo, $result_feedback[0]->val_prox_remate,$result_feedback[0]->val_comentario));
-
+*/
 		// escribe
-	
-		foreach ($feedback_upload as $reg) { fputcsv($outfile_csv, $reg, ';', '"'); }
+/*	
+		foreach ($feedback_upload as $reg) { 
+		    fputcsv($outfile_csv, $reg, ';', '"'); 
+		    
+		}
+*/	
+        // Escribe rigido (OPTIMIZAR EN PROX VERSION)
+        
+        fwrite($outfile_csv, "\"id\";\"idInventario\";\"val_montoindem\";\"val_montomin\";\"val_comentario\"" . "\r\n");
+        
+        fwrite($outfile_csv, '"' . $result_feedback[0]->id . '";"' . $result_feedback[0]->idInventario . '";"' . $result_feedback[0]->val_monto_indemnizado . '";"' . $result_feedback[0]->val_monto_minimo . '";"' . $result_feedback[0]->val_comentario . '"' . "\r\n" );
+
+
 
 		fclose($outfile_csv);
 
