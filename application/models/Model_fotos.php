@@ -44,7 +44,7 @@ class Model_fotos extends CI_Model {
 				$efile = pathinfo(strtolower($lfile), PATHINFO_EXTENSION);
 			
 		if($efile) {
-			if(($efile == 'jpg' || $efile == 'jpeg' || $efile == 'png' || $efile == 'bmp') && $x <6)    
+			if(($efile == 'jpg' || $efile == 'jpeg' || $efile == 'png' || $efile == 'bmp') && $x <12)    
 			{
 				$retval = $this->ftp->download($rfile, $this->config->item('ldir') . $pat . $lfile, 'binary');
 				$config['source_image'] = $this->config->item('ldir') . $pat . $lfile;

@@ -8,7 +8,7 @@ $config['filedata_tcampos'] = 37; # Largo de columnas del archivo CSV
 
 /* configuracion de conexión FTP al repositorio de imagenes */
 
-$config['hostname']  = '200.29.162.210'; 	# ftp hostname
+$config['hostname']  = 'reyco.mine.nu'; 	# ftp hostname
 $config['username']  = 'user_rematesr_integr';	# ftp username
 $config['password']  = 'reyco4355';		# ftp password
 $config['rdir']      = '/fotos/'; 		# ftp remote path
@@ -50,7 +50,7 @@ $config['hash_batch'] = '3559a7e033fcfddf7f9657d3321d7823c403fced';
 $config['devel_name']    = 'Paul Asalgado';
 $config['devel_org']     = 'LionHeart';
 $config['devel_contact'] = 'paul.asalgado.ruz@gmail.com';
-$config['devel_ver']     = '4.6';
+$config['devel_ver']     = '4.7';
 $config['devel_lic']     = 'Reyco S.A.';
 $config['devel_tit']     = 'Sistema de Aseguradoras para multiples compañias.';
 

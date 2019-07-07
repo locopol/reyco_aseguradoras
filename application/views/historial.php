@@ -6,9 +6,9 @@
 <fieldset style="border-radius: 5px">
  <legend>Antecedentes del Item</legend>
 
-<table class="historial_table" width="100%" >
+ <table class="historial_table">
 	<tr style="font-size: 12px;">
-		<td style="font-size: 14px; font-weight: bold" width="35%">Siniestro: <?php echo $historial['siniestro']; ?></td> 
+		<td style="font-size: 14px; font-weight: bold; width: 35%">Siniestro: <?php echo $historial['siniestro']; ?></td> 
 
 		<td style="font-size: 14px; font-weight: bold">Fecha Remate: <?php echo $historial['fecharemate']; ?></td>
 		<td style="font-size: 12px; font-weight: bold"><?php if ($historial['estado'] == 'Vendido') echo 'Monto adjudicado: $' . number_format($historial['montoadj'],0,',','.'); elseif ($historial['estado'] == 'Stock') echo 'Monto minimo: $' . number_format($historial['montomin'],0,',','.'); ?></td>
@@ -23,16 +23,15 @@
 		<td style="font-weight: bold">Nombre Asegurado: <?php echo $historial['duennoant']; ?></td>
 		<td style="font-weight: bold">Liquidador: <?php echo $historial['liquidador']; ?></td>
 	</tr>
-
-</table>
+ </table>
 </fieldset>
 
 <fieldset style="border-radius: 5px">
  <legend>Datos del vehiculo</legend>
 
-<table class="historial_table" width="100%" >
- <tr style="font-size: 12px;">
-	<td style="font-size: 14px; font-weight: bold" width="35%">Patente: <?php echo $historial['placa']; ?></td> 
+ <table class="historial_table" >
+  <tr style="font-size: 12px;">
+	<td style="font-size: 14px; font-weight: bold; width:35%">Patente: <?php echo $historial['placa']; ?></td> 
 	<td>Tipo: <?php echo $historial['tipo']; ?></td>
 	<td>A&ntilde;o: <?php echo $historial['anno']; ?></td>
 	
@@ -48,8 +47,8 @@
 	<td>Motor: <?php echo $historial['motor']; ?></td>
 	<td><b>Lugar Fisico: <?php echo $historial['ubicafisica']; ?></b></td>
 
- </tr>
-</table>
+  </tr>
+ </table>
 </fieldset>
 
 <fieldset style="border-radius: 5px; width: 450px; float: left;">
@@ -62,34 +61,28 @@
 <fieldset style="border-radius: 5px; width: auto;">
  <legend>Datos adicionales</legend>
 
-<table class="historial_table" width="100%">
+<table class="historial_table">
 	<colgroup>
-        <col width="40%" />
-        <col width="10%" />
-        <col width="30%" />
-        <col width="20%" />
+        <col style="width:40%" />
+        <col style="width:10%" />
+        <col style="width:30%" />
+        <col style="width:20%" />
     </colgroup>
  <tr style="font-size: 10px;">
 	<td>Permiso de circulacion:</td><td><b><?php echo $historial['pcircula']; ?></b></td> 
 	<td>Mandato:</td> <td><b><?php echo $historial['mandato']; ?></b></td>
  </tr>
  <tr style="font-size: 10px;">
-	<td>Revision tecnica:</b></td><td><b><?php echo $historial['rtecnica']; ?></b></td>
+	<td>Revision tecnica:</td><td><b><?php echo $historial['rtecnica']; ?></b></td>
 	<td>Llaves:</td><td><b><?php echo $historial['conllave2']; ?></b></td>
  </tr>
 </table>
-
-
 </fieldset>
-
 
 <?php if($historial['estado']=="Stock") { ?>
 
 <fieldset style="border-radius: 5px; float: left; width: 876px">
 <legend>
-
-<div style="display: inline-block; line-height: 1.2;">
- <div style="float:left; padding: 0 5px">
 	<?php 
 	  if ($this->model_fotos->check_video_path($historial['placa']) == '0')
 		  echo 'Fotos disponibles del vehiculo';
@@ -97,8 +90,6 @@
 		  echo 'Fotos y video disponibles del vehiculo';
 
         ?>
- </div>
-</div>
 </legend>
 <div id="links">
 
@@ -111,28 +102,28 @@ if ($this->model_fotos->img_path($historial['placa']) == 0) {
 
 $foto = $this->model_fotos->img_path($historial['placa']);
 
-for($x=0;$x<6;$x++) {
+for($x=0;$x<12;$x++) {
 
 	// Pegar video a la cola de la lista
-	if ($x == 5 && $this->model_fotos->check_video_path($historial['placa']) != '0') {
-		echo ' <div style="float: left; border:1px solid #000000; padding-top: 0.2em">' . "\n";
+	if ($x == 11 && $this->model_fotos->check_video_path($historial['placa']) != '0') {
+		echo ' <div style="float: left;  margin-top: -4px">' . "\n";
 		echo '  <a href="'. base_url() . $this->model_fotos->check_video_path($historial['placa']) . '" type="' . get_mime_by_extension($this->model_fotos->check_video_path($historial['placa'])) . '" data-poster="' . base_url() . 'images/car-shadow-poster.jpg">' . "\n";
-		echo '   <img width="144" height="40%" src="'. base_url() . 'images/video-play.jpg" alt="Presione aqu&iacute; para ver video">' . "\n";
+		echo '   <img class="image-links" src="'. base_url() . 'images/video-play.jpg" alt="Presione aqu&iacute; para ver video">' . "\n";
 		echo ' </a>';
 		echo '</div>' . "\n";
 	} else {
 
 	// Pegar fotos independiente del video
 	if(count($this->model_fotos->img_path($historial['placa'])) > ($x) && $this->model_fotos->img_path($historial['placa']) != 0) {
-		echo ' <div style="float: left; border:1px solid #000000; padding-top: 0.2em">' . "\n";
+		echo ' <div style="float: left; margin-top: -4px">' . "\n";
 		echo '  <a href="'. base_url() . $foto[$x] . '" type="' . get_mime_by_extension($foto[$x]) . '">' . "\n";
-		echo '   <img width="144" height="40%" src="'. base_url() . $foto[$x] . '">' . "\n";
+		echo '   <img alt="" class="image-links" src="'. base_url() . $foto[$x] . '">' . "\n";
 		echo ' </a>';
 		echo '</div>' . "\n";
 	} else {
 	
-		 echo ' <div id="' . $x . '" style="float: left; border:1px solid #000000; padding-top: 0.2em" >' . "\n";
-		 echo '  <img width="144" height="50%" src="'. base_url() . 'images/noimage.jpg">' . "\n";
+		 echo ' <div id="' . $x . '" style="float: left; margin-top: -4px" >' . "\n";
+		 echo '  <img alt="" class="image-links" src="'. base_url() . 'images/noimage.jpg">' . "\n";
 		 echo ' </div>' . "\n";
 	 }
 
@@ -145,9 +136,10 @@ for($x=0;$x<6;$x++) {
 ?>
 </div>
 </fieldset>
-
+</fieldset>
 <script>
 // Blueimp gallery
+ 	//<![CDATA[
 document.getElementById('links').onclick = function (event) {
  event = event || window.event;
  var target  = event.target || event.srcElement,
@@ -156,7 +148,7 @@ document.getElementById('links').onclick = function (event) {
      links   = this.getElementsByTagName('a');
  blueimp.Gallery(links, options);
 };
-
+	//]]>
 </script>
 
 <?php } ?>

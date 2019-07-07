@@ -2,16 +2,14 @@
 <?php if(!$this->session->userdata('isLoggedIn')) redirect(base_url() . 'login'); ?>
 <body>
 
-<!-- Preloader -->
 <div id="preloader">
 	<div id="status">&nbsp;</div>
 </div>
 
-<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
     <div class="slides"></div>
-    <a class="prev"><</a>
-    <a class="next">></a>
+    <a class="prev">&lt;</a>
+    <a class="next">&gt;</a>
     <a class="close">x</a>
     <ol class="indicator"></ol>
 </div>
@@ -19,10 +17,10 @@
   <div id="container">
     <div id="header"><img width="982" src="<?php echo base_url();?>images/logo_.jpg" alt="Remates Reyco" title="Remates Reyco" /></div>
 
-<!-- menu principal -->
-<?php $this->load->view('menu'); ?>
-<!-- fin menu -->
-
+<?php 
+# Menu Principal
+$this->load->view('menu'); 
+?>
 
         <?php if ($login) { ?>
          	<div class="ui-widget" style="padding-top: 2px">
@@ -58,17 +56,17 @@
 <div>
 <?php $this->load->view('historial'); ?>
 
+<?php # MODIFICACION DE DATOS ?>
 <?php if ((($estado == 'S' || $estado == 'F') && $feedback == 0) && $historial['estado']!="Vendido") { ?>
-  <!-- aqui va la solicitud de datos -->
       <div id="dialog" title="Solicitud de modificaci&oacute;n de informaci&oacute;n">
 	<br />
 	<fieldset style="border-radius: 5px">
 	  <legend>Ingrese los datos requeridos a modificar</legend>
-		<?php echo form_open('update/update_send/' . $historial['id'], array('id' => 'update_send')); ?>
+		<?php echo form_open('update/update_send/' . $historial['id'], array('id' => 'update_send', 'accept-charset' => 'utf-8')); ?>
 		<input type="hidden" name="idInventario" value="<?php echo $historial['inventario']; ?>">
-		<table border=0 style="padding: 0px">
+		<table style="padding: 0px; border: 0px;">
    		<tr>
-		<td width="45%">Valor Indemnizado ($): </td><td><input class="decnumber" name="val_monto_indemnizado" value="<?php if ($historial['montoindem'] == 0) echo '';else echo $historial['montoindem']; ?>"></td>
+		<td style="width:45%">Valor Indemnizado ($): </td><td><input class="decnumber" name="val_monto_indemnizado" value="<?php if ($historial['montoindem'] == 0) echo '';else echo $historial['montoindem']; ?>"></td>
 		</tr><tr>
 		<td>Valor Minimo ($): </td><td> <input class="decnumber" name="val_monto_minimo" value="<?php if ($historial['montomin'] == 0) echo '';else echo $historial['montomin']; ?>"></td>
 		</tr><tr>
@@ -99,7 +97,7 @@
 </div>
 
 
-<script type="text/javascript">
+<script>
 // Preloader 
 	//<![CDATA[
 	$(window).load(function() { // makes sure the whole site is loaded

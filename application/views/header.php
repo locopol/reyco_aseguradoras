@@ -1,31 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head>
-<meta charset="latin1">
+<meta charset="utf-8">
 <title>Sistema de aseguradora de vehiculos</title>
-<script src="<?php echo base_url();?>js/jquery-1.10.1.min.js"></script> 
-<script src="<?php echo base_url();?>js/jquery-ui.min.js"></script>
-
-
-<script src="<?php echo base_url();?>js/jquery.datatables.min.js"></script>
-<script src="<?php echo base_url();?>js/blueimp-gallery.min.js"></script>
-<script src="<?php echo base_url();?>js/jqsimplemenu.js"></script>
-<script src="<?php echo base_url();?>js/jquery.number.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-<link href="<?php echo base_url();?>css/blueimp-gallery.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+<link href="<?php echo base_url();?>css/blueimp-gallery.min.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url();?>css/jquery.datatables_themeroller.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url();?>css/jquery-ui.min.css" rel="stylesheet"/>
 <link href="<?php echo base_url();?>css/jqsimplemenu.css" rel="stylesheet" type="text/css" />
 <link href="<?php echo base_url();?>css/private.css" rel="stylesheet" type="text/css" />
-
-<style>
-.ui-re-shadow {
-	position:relative;
-	z-index:1;
-	box-shadow: 0px 2px 8px #888888;
-	border-radius: 8px
-}
-</style>
+<script src="<?php echo base_url();?>js/jquery-1.10.1.min.js"></script> 
+<script src="<?php echo base_url();?>js/jquery-ui.min.js"></script>
+<script src="<?php echo base_url();?>js/jquery.datatables.min.js"></script>
+<script src="<?php echo base_url();?>js/blueimp-gallery.min.js"></script>
+<script src="<?php echo base_url();?>js/jqsimplemenu.js"></script>
+<script src="<?php echo base_url();?>js/jquery.number.min.js"></script>
 
 <script>
 
@@ -136,7 +125,6 @@ $(function() {
 
 <?php } ?>
 
-
 	$( ".checkbox").checkboxradio();
 	var table = $( "#datatable" ).DataTable({"iDisplayStart": 0, "iDisplayLength": 10, "bJQueryUI": true, "sPaginationType": "full_numbers" , "bLengthChange": false, "bFilter": false,
 	"oLanguage": {
@@ -155,31 +143,5 @@ $(function() {
 });
 
 </script>
-
-<style>
-/* Preloader */
-#preloader {
-	position:absolute;
-	top:0;
-	left:0;
-	right:0;
-	bottom:0;
-	background: linear-gradient(to right,darkgrey, lightgrey);
-	//background: url(/aseguradora_v4/images/bgsite.jpg)  no-repeat fixed center;
-	background-size: cover;
-	z-index:1001; /* makes sure it stays on top */
-}
-#status {
-	width:200px;
-	height:200px;
-	position:absolute;
-	left:50%; /* centers the loading animation horizontally one the screen */
-	top:50%; /* centers the loading animation vertically one the screen */
-	background-image: url(/aseguradoras/images/loading2.gif); /* path to your loading animation */
-	background-repeat:no-repeat;
-	background-position:center;
-	margin:-100px 0 0 -100px; /* is width and height divided by two */
-}
-</style>
 
 </head>

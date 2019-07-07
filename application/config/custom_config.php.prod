@@ -54,7 +54,7 @@ $config['hash_batch'] = '3559a7e033fcfddf7f9657d3321d7823c403fced';
 $config['devel_name']    = 'Paul Asalgado';
 $config['devel_org']     = 'LionHeart';
 $config['devel_contact'] = 'paul.asalgado.ruz@gmail.com';
-$config['devel_ver']     = '4.6';
+$config['devel_ver']     = '4.7';
 $config['devel_lic']     = 'Reyco S.A.';
 $config['devel_tit']     = 'Sistema de Aseguradoras para multiples compañias.';
 
