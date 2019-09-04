@@ -1,5 +1,5 @@
 <?php $this->load->view('header'); ?>
-<?php if(!$this->session->userdata('isLoggedIn')) redirect(base_url() . 'login'); ?>
+<?php if(!$this->session->userdata('isLoggedIn')) redirect(site_url('login')); ?>
 
 <body>
 
@@ -10,7 +10,7 @@
 
 <div class="bz">
   <div id="container">
-    <div id="header"><img width="982" src="<?php echo base_url();?>images/logo_.jpg" alt="Remates Reyco" title="Remates Reyco" /></div>
+    <div id="header"><img width="982" src="<?php echo site_url('images/logo_.jpg'); ?>" alt="Remates Reyco" title="Remates Reyco" /></div>
 <!-- menu principal -->
 <?php 
 
@@ -61,8 +61,8 @@ $this->load->view('menu'); ?>
 	<div>
 
 <fieldset style="border-radius: 5px">
- <legend style="font-size: 14px; font-weight: bold">Información de credencial de acceso</legend>
-	<?php echo form_open('/usrmaint/add'); ?>
+ <legend style="font-size: 14px; font-weight: bold">Informaci&oacute;n de credencial de acceso</legend>
+	<?php echo form_open(site_url('base/usrmaint/add')); ?>
 	<input type="hidden" id="accion" name="accion" value="do_add">
 	
 	<table border=0 class="historial_table" >
@@ -76,11 +76,11 @@ $this->load->view('menu'); ?>
 	  	<td>Contrase&ntilde;a:</td><td> <input id="cp_passwd" name="cp_passwd" type="password" autocomplete="off"></td>
          </tr>
          <tr>
-	  	<td>Compa&ntilde;ias autorizadas: <br /><p style="font-size: 9px"> (usar CTRL para selección multiple) </p></td><td> <select multiple name="cp_company[]"> <?php foreach ($this->dbmaint->get_proveedores() as $opcion) { echo '<option>' . $opcion['proveedor'] . '</option>' . "\n\r"; } ?> </select></td>
+	  	<td>Compa&ntilde;ias autorizadas: <br /><p style="font-size: 9px"> (usar CTRL para selecci&oacute;n multiple) </p></td><td> <select multiple name="cp_company[]"> <?php foreach ($this->dbmaint->get_proveedores() as $opcion) { echo '<option>' . $opcion['proveedor'] . '</option>' . "\n\r"; } ?> </select></td>
 	 </tr>
 	 <tr>
          <tr>
-	  	<td> Email de notificación :</td><td> <input id="cp_email" name="cp_email" type="text"></td>
+	  	<td> Email de notificaci&oacute;n :</td><td> <input id="cp_email" name="cp_email" type="text"></td>
 	 </tr>
 	 <tr>
 	  	<td> Permitir modificaciones :</td><td> <input type="checkbox" name="cp_update"></td>
@@ -110,12 +110,12 @@ $this->load->view('menu'); ?>
 </div>
 
 
-  <!-- aqui va la confirmación de eliminación -->
+  <!-- aqui va la confirmaci&oacute;n de eliminaci&oacute;n -->
       <div id="dialog" title="Confirmaci&oacute;n">
 	<br />
 	<fieldset style="border-radius: 5px">
-	  	¿Esta seguro de eliminar la cuenta?
-		<?php echo form_open('usrmaint/del', array('id' => 'delcp_send')); ?>
+	  	&iquest;Esta seguro de eliminar la cuenta?
+		<?php echo form_open(site_url('base/usrmaint/del'), array('id' => 'delcp_send')); ?>
 		<input type="hidden" id="idUser" name="idUser" value="TST">
 		</form>
 	</fieldset>
@@ -138,11 +138,11 @@ $this->load->view('menu'); ?>
 </div>
 
 
-  <!-- aqui va la confirmación de cambio de clave -->
+  <!-- aqui va la confirmaci&oacute;n de cambio de clave -->
       <div id="dialog" title="Modificaci&oacute;n de contrase&ntilde;a">
 	<br />
 	<fieldset style="border-radius: 5px">
-		<?php echo form_open('usrmaint/pwd', array('id' => 'pwdcp_send')); ?>
+		<?php echo form_open(site_url('base/usrmaint/pwd'), array('id' => 'pwdcp_send')); ?>
 		<input type="hidden" id="idUser" name="idUser" value="TST">
 		<table border=0 style="padding: 0px">
    		<tr>

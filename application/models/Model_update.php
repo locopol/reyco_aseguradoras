@@ -14,7 +14,7 @@ class Model_update extends CI_Model {
 	
 		// Obtener datos de Feedback para generar archivo y datos
 		
-		$this->db->select();
+		$this->db->select("*, CASE WHEN val_prox_remate = 1 THEN 'S' ELSE 'N' END AS val_incluyeremate, CASE WHEN val_aplicaiva = 1 THEN 'S' ELSE 'N' END AS val_aplicaiva_1");
 		$this->db->where('id',$id_feedback);
 		$query=$this->db->get('stocklist_feedback');
 		$result_feedback=$query->result();
@@ -41,11 +41,9 @@ class Model_update extends CI_Model {
 */	
         // Escribe rigido (OPTIMIZAR EN PROX VERSION)
         
-        fwrite($outfile_csv, "\"id\";\"idInventario\";\"val_montoindem\";\"val_montomin\";\"val_comentario\"" . "\r\n");
+        fwrite($outfile_csv, "\"id\";\"idInventario\";\"val_montoindem\";\"val_montomin\";\"val_aplicaiva\";\"val_incluyeremate\";\"val_comentario\"" . "\r\n");
         
-        fwrite($outfile_csv, '"' . $result_feedback[0]->id . '";"' . $result_feedback[0]->idInventario . '";"' . $result_feedback[0]->val_monto_indemnizado . '";"' . $result_feedback[0]->val_monto_minimo . '";"' . $result_feedback[0]->val_comentario . '"' . "\r\n" );
-
-
+        fwrite($outfile_csv, '"' . $result_feedback[0]->id . '";"' . $result_feedback[0]->idInventario . '";"' . $result_feedback[0]->val_monto_indemnizado . '";"' . $result_feedback[0]->val_monto_minimo . '";"' . $result_feedback[0]->val_aplicaiva_1 . '";"' . $result_feedback[0]->val_incluyeremate . '";"' . $result_feedback[0]->val_comentario . '"' . "\r\n" );
 
 		fclose($outfile_csv);
 

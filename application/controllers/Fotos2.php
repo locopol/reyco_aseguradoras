@@ -27,7 +27,7 @@ class Fotos2 extends CI_Controller
 			redirect('/');
 
 		if($this->model_fotos->check_reg($pat))
-			redirect(base_url() . 'base/historial/' . $id . '/S/success/-1');
+			redirect(site_url('base/historial/' . $id . '/S/success/-1'));
 
 		 $imgresult = $this->model_fotos->get_imgs($pat);
 		 $this->db->reconnect();
@@ -35,21 +35,21 @@ class Fotos2 extends CI_Controller
 		 if ($imgresult == 1)
 		 {
 			 $this->model_fotos->insert_reg($pat);
-			 redirect(base_url() . 'base/historial/' . $id . '/S/success/' . $imgresult);
+			 redirect(site_url('base/historial/' . $id . '/S/success/' . $imgresult));
 		 }
 		 if ($imgresult == 0)
 		 {
-			 redirect(base_url() . 'base/historial/' . $id . '/S/error/' . $imgresult);
+			 redirect(site_url('base/historial/' . $id . '/S/error/' . $imgresult));
 		 }
 
 		 if ($imgresult == 128)
 		 {
-			 redirect(base_url() . 'base/historial/' . $id . '/S/error/' . $imgresult);
+			 redirect(site_url('base/historial/' . $id . '/S/error/' . $imgresult));
 		 }
 
 		 if ($imgresult == 255)
 		 {
-			 redirect(base_url() . 'base/historial/' . $id . '/S/error/' . $imgresult);
+			 redirect(site_url('base/historial/' . $id . '/S/error/' . $imgresult));
 		 }
 
 	}

@@ -66,7 +66,7 @@ class Base extends CI_Controller {
 					$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al crear cuenta, usuario ya existe, intente nuevamente.', 'login' => '', 'pattern' => 0); }
 
 				elseif (count($this->input->post('cp_company')) == 0) {
-					$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al crear cuenta, debe seleccionar al menos una compañia base.', 'login' => '', 'pattern' => 0); }
+					$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al crear cuenta, debe seleccionar al menos una compa&ntilde;ia base.', 'login' => '', 'pattern' => 0); }
 
 
 				else
@@ -79,7 +79,7 @@ class Base extends CI_Controller {
 						foreach ($this->input->post('cp_company') as $company)
 							$this->dbmaint->add_user_company($idUser, $company);
 						
-						$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => 'Acceso de compañia (usuario: ' . $this->input->post('cp_user') . ') creado correctamente.', 'error' => '', 'login' => '', 'pattern' => 0);
+						$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => 'Acceso de compa&ntilde;ia (usuario: ' . $this->input->post('cp_user') . ') creado correctamente.', 'error' => '', 'login' => '', 'pattern' => 0);
 					} else {
 						$opcion = array('estado' => 'addcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al crear cuenta de acceso, contacte al administrador.', 'login' => '', 'pattern' => 0);
 					}
@@ -114,11 +114,11 @@ class Base extends CI_Controller {
 
 				if($this->input->post('pwd1') != $this->input->post('pwd2')) {
 					$status =+1; 
-					$message = 'Error al modificar contraseña del usuario ' . $this->dbmaint->get_user($this->input->post('idUser')) . ', las contraseñas no coinciden, intente nuevamente.';
+					$message = 'Error al modificar contrase&ntilde;a del usuario ' . $this->dbmaint->get_user($this->input->post('idUser')) . ', las contrase&ntilde;as no coinciden, intente nuevamente.';
 				}
 				if($this->input->post('pwd1') == '' && $this->input->post('pwd2') == '') {
 					$status =+1;
-					$message = 'Error al modificar contraseña del usuario ' . $this->dbmaint->get_user($this->input->post('idUser')) . ', complete los campos e intente nuevamente.';
+					$message = 'Error al modificar contrase&ntilde;a del usuario ' . $this->dbmaint->get_user($this->input->post('idUser')) . ', complete los campos e intente nuevamente.';
 				}
 
 				if ($status >=1) {
@@ -130,9 +130,9 @@ class Base extends CI_Controller {
 					$retval = $this->dbmaint->pwd_user($this->input->post('idUser'), sha1($this->input->post('pwd1')));
 
 					if ($retval)
-						$opcion = array('estado' => 'pwdcp', 'historial' => '', 'result' => '', 'success' => 'Contraseña del usuario ' . $this->dbmaint->get_user($this->input->post('idUser')) . ' modificada correctamente.', 'error' => '', 'login' => '', 'pattern' => 0);
+						$opcion = array('estado' => 'pwdcp', 'historial' => '', 'result' => '', 'success' => 'Contrase&ntilde;a del usuario ' . $this->dbmaint->get_user($this->input->post('idUser')) . ' modificada correctamente.', 'error' => '', 'login' => '', 'pattern' => 0);
 					else
-						$opcion = array('estado' => 'pwdcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al modificar contraseña del usuario ' . $this->dbmaint->get_user($this->input->post('idUser')) . ', contacte al administrador.', 'login' => '', 'pattern' => 0);
+						$opcion = array('estado' => 'pwdcp', 'historial' => '', 'result' => '', 'success' => '', 'error' => 'Error al modificar contrase&ntilde;a del usuario ' . $this->dbmaint->get_user($this->input->post('idUser')) . ', contacte al administrador.', 'login' => '', 'pattern' => 0);
 
 				}
 
@@ -167,7 +167,7 @@ class Base extends CI_Controller {
 		}
 
 		else {
-			$opcion = array('estado' => 'S', 'historial' => '', 'result' => '', 'error' => '', 'success' => 'No se realiza ninguna acción.', 'login' => '', 'pattern' => 0);
+			$opcion = array('estado' => 'S', 'historial' => '', 'result' => '', 'error' => '', 'success' => 'No se realiza ninguna acci&oacute;n.', 'login' => '', 'pattern' => 0);
 			$this->load->view('base', $opcion);
 		
 		}
@@ -197,10 +197,10 @@ class Base extends CI_Controller {
 	if ($msgtype == 'update') {
 		if ($msg == 'success') {
 			$error = '';
-			$success = 'Solicitud de modificación de datos para el item de inventario ' . $this->dbmaint->get_value_of_col($id,'inventario') . ' procesada correctamente'; }
+			$success = 'Solicitud de modificaci&oacute;n de datos para el item de inventario ' . $this->dbmaint->get_value_of_col($id,'inventario') . ' procesada correctamente'; }
 		if ($msg == 'error') {
 			$success = '';
-			$error = 'La solicitud de modificación para el item de inventario  ' . $this->dbmaint->get_value_of_col($id,'inventario') . ' no fue procesada, notifique al administrador.'; }
+			$error = 'La solicitud de modificaci&oacute;n para el item de inventario  ' . $this->dbmaint->get_value_of_col($id,'inventario') . ' no fue procesada, notifique al administrador.'; }
 		if ($msg == 'check') {
 			$success = '';
 			$error = 'La solicitud de modificaci&oacute;n de datos no presenta cambios, modifique al menos un campo antes de enviar.'; }	
@@ -287,7 +287,7 @@ class Base extends CI_Controller {
 
 		else {
 
-			$opcion = array('estado' => 'S', 'historial' => '', 'result' => '', 'error' => '', 'success' => 'No se realiza ninguna acción.', 'login' => '', 'pattern' => 0);
+			$opcion = array('estado' => 'S', 'historial' => '', 'result' => '', 'error' => '', 'success' => 'No se realiza ninguna acci&oacute;n.', 'login' => '', 'pattern' => 0);
 			$this->load->view('base', $opcion);
 		
 		}

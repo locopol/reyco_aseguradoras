@@ -6,7 +6,7 @@ $config['filedata_dir']     = 'c:\\devel\\aseguradoras\\'; # ruta del archivo de
 $config['filedata_name']    = 'aseguradora_v4.csv'; # Nombre del archivo
 $config['filedata_tcampos'] = 37; # Largo de columnas del archivo CSV
 
-/* configuracion de conexión FTP al repositorio de imagenes */
+/* configuracion de conexion FTP al repositorio de imagenes */
 
 $config['hostname']  = 'reyco.mine.nu'; 	# ftp hostname
 $config['username']  = 'user_rematesr_integr';	# ftp username
@@ -18,7 +18,11 @@ $config['debug_ftp'] = FALSE;			# ftp debugging
 
 /* Configuracion para documentos PDF */
 
-$config['rdir_pdf'] = '/doctos/procesados/'; 			# ftp remote path
+$config['hostname_pdf'] = '200.73.6.198';
+$config['username_pdf']	= 'OMUNOZ';	# ftp username
+$config['password_pdf']	= 'Adm.0404*';# ftp password
+
+$config['rdir_pdf'] = '/FAE_BSOFT/02/pdf/'; 			# ftp remote path
 $config['ldir_pdf'] = 'c:\\devel\\aseguradoras\\pdf\\';  # ftp upload path
 $config['pdir_pdf'] = 'pdf/'; 		# relative path web 
 
@@ -50,8 +54,8 @@ $config['hash_batch'] = '3559a7e033fcfddf7f9657d3321d7823c403fced';
 $config['devel_name']    = 'Paul Asalgado';
 $config['devel_org']     = 'LionHeart';
 $config['devel_contact'] = 'paul.asalgado.ruz@gmail.com';
-$config['devel_ver']     = '4.7';
+$config['devel_ver']     = '4.8';
 $config['devel_lic']     = 'Reyco S.A.';
-$config['devel_tit']     = 'Sistema de Aseguradoras para multiples compañias.';
+$config['devel_tit']     = 'Sistema de Aseguradoras para multiples compa&ntilde;ias.';
 
 ?>

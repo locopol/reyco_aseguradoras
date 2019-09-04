@@ -9,7 +9,7 @@
 <div class="bz">
   <div id="container">
   <div id="header">
-<img width="982" src="<?php echo base_url(); ?>images/logo_.jpg" alt="Remates Reyco" title="Remates Reyco" />
+<img width="982" src="<?php echo site_url('images/logo_.jpg'); ?>" alt="Remates Reyco" title="Remates Reyco" />
 </div>
 
         <?php if ($error) { ?>
@@ -35,7 +35,7 @@
 <h4 style="font-size: 15px; font-weight: bold;">Sistema de informaci&oacuten de aseguradoras - Inicio de sesi&oacute;n</h4>
 <div>
 
-<?php echo form_open(base_url() . 'login/login_user'); ?>
+<?php echo form_open(site_url('login/login_user')); ?>
 <fieldset class="fieldset">
     <legend style="font-weight: bold">Credenciales de Usuario</legend>
     <ol>

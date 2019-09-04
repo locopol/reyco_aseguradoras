@@ -1,10 +1,12 @@
 <?php $this->load->view('header'); ?>
-<?php if(!$this->session->userdata('isLoggedIn')) redirect(base_url() . 'login'); ?>
+<?php if(!$this->session->userdata('isLoggedIn')) redirect(site_url('login')); ?>
 <body>
 
 <div id="preloader">
 	<div id="status">&nbsp;</div>
 </div>
+
+
 
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
     <div class="slides"></div>
@@ -15,7 +17,7 @@
 </div>
 <div class="bz">
   <div id="container">
-    <div id="header"><img width="982" src="<?php echo base_url();?>images/logo_.jpg" alt="Remates Reyco" title="Remates Reyco" /></div>
+    <div id="header"><img width="982" src="<?php echo site_url('images/logo_.jpg'); ?>" alt="Remates Reyco" title="Remates Reyco" /></div>
 
 <?php 
 # Menu Principal
@@ -47,6 +49,8 @@ $this->load->view('menu');
 	 </div>
 	 </div>
 	<?php } ?>
+
+
 <div id="accordion">
 
 <?php if ($historial) { ?>
@@ -56,23 +60,26 @@ $this->load->view('menu');
 <div>
 <?php $this->load->view('historial'); ?>
 
-<?php # MODIFICACION DE DATOS ?>
-<?php if ((($estado == 'S' || $estado == 'F') && $feedback == 0) && $historial['estado']!="Vendido") { ?>
+<?php # MODIFICACION DE DATOS
+  if ((($estado == 'S' || $estado == 'F') && $feedback == 0) && $historial['estado']!="Vendido") { ?>
       <div id="dialog" title="Solicitud de modificaci&oacute;n de informaci&oacute;n">
 	<br />
 	<fieldset style="border-radius: 5px">
 	  <legend>Ingrese los datos requeridos a modificar</legend>
-		<?php echo form_open('update/update_send/' . $historial['id'], array('id' => 'update_send', 'accept-charset' => 'utf-8')); ?>
+		<?php echo form_open(site_url('update/update_send/') . $historial['id'], array('id' => 'update_send', 'accept-charset' => 'utf-8')); ?>
 		<input type="hidden" name="idInventario" value="<?php echo $historial['inventario']; ?>">
 		<table style="padding: 0px; border: 0px;">
    		<tr>
-		<td style="width:45%">Valor Indemnizado ($): </td><td><input class="decnumber" name="val_monto_indemnizado" value="<?php if ($historial['montoindem'] == 0) echo '';else echo $historial['montoindem']; ?>"></td>
+		<td style="width:45%">Valor Indemnizado ($): </td><td colspan=4><input class="decnumber" name="val_monto_indemnizado" value="<?php echo $historial['montoindem']; ?>"></td>
 		</tr><tr>
-		<td>Valor Minimo ($): </td><td> <input class="decnumber" name="val_monto_minimo" value="<?php if ($historial['montomin'] == 0) echo '';else echo $historial['montomin']; ?>"></td>
+		<td>Valor Minimo ($): </td><td colspan=4> <input class="decnumber" name="val_monto_minimo" value="<?php echo $historial['montomin']; ?>"></td>
 		</tr><tr>
-		 <td>Incluir en proximo remate: </td><td> <input type="checkbox" name="val_prox_remate"></td>
+		 <td>Incluir en proximo remate: </td><td> <label class="switch"><input type="checkbox" name="val_prox_remate"><span class="slider round"></span>
+</label></td>
+		 <td>Aplica IVA: </td><td><label class="switch"><input type="checkbox" name="val_aplicaiva"><span class="slider round"></span>
+</label></td>
 		</tr><tr>
-		<td>Comentarios de CIA: </td><td> <textarea name="val_comentario" cols="30"><?php echo $historial['comentario']; ?></textarea></td>
+		<td>Comentarios de CIA: </td><td colspan=4> <textarea name="val_comentario" cols="30"><?php echo $historial['comentario']; ?></textarea></td>
                 </tr>
 		</table>
 		</form>
@@ -80,6 +87,7 @@ $this->load->view('menu');
     </div>
 
 <?php } ?>
+
 </div>
 
 <?php } else { ?>
@@ -95,6 +103,7 @@ $this->load->view('menu');
 <?php $this->load->view('footer'); ?>
 </div>
 </div>
+
 
 
 <script>

@@ -73,7 +73,7 @@ class Dbmaint extends CI_Model {
 		$texto = '';
 		$fecha = date('Y-m-d H:i:s');
 
-//Estado|Tipo Vehiculo|Marca|Modelo|Color|Inventario|Siniestro|Placa|Anno|Chasis|Motor|Dueño Ant.|Rut Dueño Ant.|Funcionando|Nº Remate|Nº Lote|Con Documento|Con Llave|Liquidador|Condicionado|Proveedor|Nº Liquidación|Fecha Liq.|Fecha Recep.|Ubicacion|Comentario Cia.|Fecha Remate|Monto Adjudicado|Monto Indemnizado|Monto Minimo|numfac
+//Estado|Tipo Vehiculo|Marca|Modelo|Color|Inventario|Siniestro|Placa|Anno|Chasis|Motor|Due&ntilde;o Ant.|Rut Due&ntilde;o Ant.|Funcionando|Nº Remate|Nº Lote|Con Documento|Con Llave|Liquidador|Condicionado|Proveedor|Nº Liquidación|Fecha Liq.|Fecha Recep.|Ubicacion|Comentario Cia.|Fecha Remate|Monto Adjudicado|Monto Indemnizado|Monto Minimo|numfac
 	$s = array(
 	'created_at' => $fecha,
 	'updated_at' => $fecha,
@@ -157,11 +157,11 @@ class Dbmaint extends CI_Model {
 		}
 
 		    if ($proveedor[0] == 'ALL') {
-			$sql='select (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as Siniestro, placa as Patente, tipo as Tipo, marca as Marca, modelo as Modelo, anno as \'A&ntilde;o\', concat(\'<a href=\"' . base_url() . 'base\/historial\/\',id,\'\/' . $estado . '\/_\/_\" >Detalles<\/a>\') as Accion from stocklist WHERE estado in ?';
+			$sql='select (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as Siniestro, placa as Patente, tipo as Tipo, marca as Marca, modelo as Modelo, anno as \'A&ntilde;o\', concat(\'<a href=\"..\/historial\/\',id,\'\/' . $estado . '\/_\/_\" >Detalles<\/a>\') as Accion from stocklist WHERE estado in ?';
 			$query=$this->db->query($sql, array($estado_array));
 		    } else {
 
-			$sql='select (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as Siniestro, placa as Patente, tipo as Tipo, marca as Marca, modelo as Modelo, anno as \'A&ntilde;o\', concat(\'<a href=\"' . base_url() . 'base\/historial\/\',id,\'\/' . $estado . '\/_\/_\" >Detalles<\/a>\') as Accion from stocklist WHERE estado in (?) and proveedor in ?';
+			$sql='select (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as Siniestro, placa as Patente, tipo as Tipo, marca as Marca, modelo as Modelo, anno as \'A&ntilde;o\', concat(\'<a href=\"..\/historial\/\',id,\'\/' . $estado . '\/_\/_\" >Detalles<\/a>\') as Accion from stocklist WHERE estado in (?) and proveedor in ?';
 			$query=$this->db->query($sql, array($estado, $proveedor));
 		    }
 		
@@ -179,7 +179,7 @@ class Dbmaint extends CI_Model {
 		}
 
 		$allwhere = '';
-		$this->db->select('(CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE  date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as \'Siniestro\', placa as \'Patente\', tipo as \'Tipo\', marca as \'Marca\', modelo as \'Modelo\', anno as \'A&ntilde;o\', concat(\'<a href="' . base_url() . 'base\/historial\/\',id,\'\/' . $estado . '\/_\/_">Detalles<\/a>\') as \'Accion\'',FALSE);
+		$this->db->select('(CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE  date_format(fecharecep, \'%d-%m-%Y\') END) as \'Recepci&oacute;n\', siniestro as \'Siniestro\', placa as \'Patente\', tipo as \'Tipo\', marca as \'Marca\', modelo as \'Modelo\', anno as \'A&ntilde;o\', concat(\'<a href=\".\/historial\/\',id,\'\/' . $estado . '\/_\/_\">Detalles<\/a>\') as \'Accion\'',FALSE);
 
 		/* activar solo cuando se busquen por codigo de remate (historial) */
 
@@ -188,7 +188,7 @@ class Dbmaint extends CI_Model {
 		else { $allwhere = "proveedor='{$proveedor}' AND {$where} LIKE '%{$pattern}%'"; }
 		$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
 
-		    // valida el acceso a asistencia para una compañia (no cuenta independiente)
+		    // valida el acceso a asistencia para una compa&ntilde;ia (no cuenta independiente)
 		    if ($this->session->userdata('asistencia') == 1)
 			$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
 		    else
@@ -229,7 +229,7 @@ class Dbmaint extends CI_Model {
 			case 'all': $where='estado'; break;
 		}
 		$allwhere = '';
-		$this->db->select('siniestro as \'N° Siniestro\', tipo as \'Tipo\', marca as \'Marca\', modelo as \'Modelo\', anno as \'A&ntilde;o\',  placa as \'Patente\', (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE  date_format(fecharecep, \'%d-%m-%Y\') END) as \'F. Ingreso\', ubicac as \'Ubicación\', comentario as \'Comentario a CIA\', proveedor as \'Compañia\'',FALSE);
+		$this->db->select('siniestro as \'N° Siniestro\', tipo as \'Tipo\', marca as \'Marca\', modelo as \'Modelo\', anno as \'A&ntilde;o\',  placa as \'Patente\', (CASE WHEN fecharecep is NULL THEN \'Sin fecha\' ELSE  date_format(fecharecep, \'%d-%m-%Y\') END) as \'F. Ingreso\', ubicac as \'Ubicación\', comentario as \'Comentario a CIA\', proveedor as \'Compa&ntilde;ia\'',FALSE);
 
 		/* activar solo cuando se busquen por codigo de remate (historial)		*/
 
@@ -241,7 +241,7 @@ class Dbmaint extends CI_Model {
 
 		$allwhere = "proveedor='" . $proveedor . "' AND {$where} LIKE '%{$pattern}%'"; 
 
-		    // valida el acceso a asistencia para una compañia (no cuenta independiente)
+		    // valida el acceso a asistencia para una compa&ntilde;ia (no cuenta independiente)
 		    if ($this->session->userdata('asistencia') == 1)
 			$allwhere = "(proveedor='" . $proveedor . "' OR proveedor = 'ASISTENCIA') AND {$where} LIKE '%{$pattern}%'"; 	
 		    else
@@ -389,10 +389,11 @@ class Dbmaint extends CI_Model {
 		//Insertar directamente para mantener registro de cambios
 	
       		$s = array(
-        		'idInventario' => $values['idInventario'],
+        	'idInventario' => $values['idInventario'],
 			'val_monto_indemnizado' => $values['val_monto_indemnizado'],
 			'val_monto_minimo' => $values['val_monto_minimo'],
 			'val_prox_remate' => $values['val_prox_remate'],
+			'val_aplicaiva' => $values['val_aplicaiva'],
 			'val_comentario' => $values['val_comentario'],
 			'fileupload' => '',
 			'fileupload_sent' => false,

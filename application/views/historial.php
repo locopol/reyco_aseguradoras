@@ -1,7 +1,7 @@
-<?php if(!$this->session->userdata('isLoggedIn')) redirect(base_url() . 'login'); ?>
+<?php if(!$this->session->userdata('isLoggedIn')) redirect(site_url('login')); ?>
 
 <fieldset style="border-radius: 5px">
- <legend style="font-size: 14px; font-weight: bold">N° DE INVENTARIO: <?php echo $historial['inventario']; if($historial['estado']=="Vendido") { echo ' / VEHICULO REMATADO'; } else { echo '/ VEHICULO EN STOCK'; } ?><?php if ($historial['proveedor'] == 'ASISTENCIA') echo '/ PROVIENE DE ASISTENCIA'; if ((($estado == 'S' || $estado == 'F') && $feedback == 1) && $historial['estado']!="Vendido") { echo ' / MODIFICACIÓN DE DATOS EN CURSO'; } ?></legend>
+ <legend style="font-size: 14px; font-weight: bold">N&deg; DE INVENTARIO: <?php echo $historial['inventario']; if($historial['estado']=="Vendido") { echo ' / VEHICULO REMATADO'; } else { echo '/ VEHICULO EN STOCK'; } ?><?php if ($historial['proveedor'] == 'ASISTENCIA') echo '/ PROVIENE DE ASISTENCIA'; if ((($estado == 'S' || $estado == 'F') && $feedback == 1) && $historial['estado']!="Vendido") { echo ' / MODIFICACI&Oacute;N DE DATOS EN CURSO'; } ?></legend>
 
 <fieldset style="border-radius: 5px">
  <legend>Antecedentes del Item</legend>
@@ -107,8 +107,8 @@ for($x=0;$x<12;$x++) {
 	// Pegar video a la cola de la lista
 	if ($x == 11 && $this->model_fotos->check_video_path($historial['placa']) != '0') {
 		echo ' <div style="float: left;  margin-top: -4px">' . "\n";
-		echo '  <a href="'. base_url() . $this->model_fotos->check_video_path($historial['placa']) . '" type="' . get_mime_by_extension($this->model_fotos->check_video_path($historial['placa'])) . '" data-poster="' . base_url() . 'images/car-shadow-poster.jpg">' . "\n";
-		echo '   <img class="image-links" src="'. base_url() . 'images/video-play.jpg" alt="Presione aqu&iacute; para ver video">' . "\n";
+		echo '  <a href="'. site_url($this->model_fotos->check_video_path($historial['placa'])) . '" type="' . get_mime_by_extension($this->model_fotos->check_video_path($historial['placa'])) . '" data-poster="' . site_url('images/car-shadow-poster.jpg') . '">' . "\n";
+		echo '   <img class="image-links" src="'. site_url('images/video-play.jpg') . '" alt="Presione aqu&iacute; para ver video">' . "\n";
 		echo ' </a>';
 		echo '</div>' . "\n";
 	} else {
@@ -116,14 +116,14 @@ for($x=0;$x<12;$x++) {
 	// Pegar fotos independiente del video
 	if(count($this->model_fotos->img_path($historial['placa'])) > ($x) && $this->model_fotos->img_path($historial['placa']) != 0) {
 		echo ' <div style="float: left; margin-top: -4px">' . "\n";
-		echo '  <a href="'. base_url() . $foto[$x] . '" type="' . get_mime_by_extension($foto[$x]) . '">' . "\n";
-		echo '   <img alt="" class="image-links" src="'. base_url() . $foto[$x] . '">' . "\n";
+		echo '  <a href="'. site_url($foto[$x])  . '" type="' . get_mime_by_extension($foto[$x]) . '">' . "\n";
+		echo '   <img alt="" class="image-links" src="'. site_url($foto[$x]) . '">' . "\n";
 		echo ' </a>';
 		echo '</div>' . "\n";
 	} else {
 	
 		 echo ' <div id="' . $x . '" style="float: left; margin-top: -4px" >' . "\n";
-		 echo '  <img alt="" class="image-links" src="'. base_url() . 'images/noimage.jpg">' . "\n";
+		 echo '  <img alt="" class="image-links" src="'. site_url('images/noimage.jpg') . '">' . "\n";
 		 echo ' </div>' . "\n";
 	 }
 

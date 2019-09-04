@@ -89,7 +89,7 @@ $config['language']	= 'english';
 | See http://php.net/htmlspecialchars for a list of supported charsets.
 |
 */
-$config['charset'] = 'iso8859-1';
+$config['charset'] = 'UTF-8';
 
 /*
 |--------------------------------------------------------------------------

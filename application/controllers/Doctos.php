@@ -22,7 +22,7 @@ class Doctos extends CI_Controller
 			redirect('/');
 
 		if($this->model_doctos->check_reg($idSiniestro))
-			redirect(base_url() . $this->model_doctos->doc_path($idSiniestro));
+			redirect(site_url($this->model_doctos->doc_path($idSiniestro)));
 			
 			//redirect(base_url() . 'base/historial/' . $id . '/S/success/-1');
 
@@ -33,21 +33,21 @@ class Doctos extends CI_Controller
 		 if ($docresult == 1)
 		 {
 			 $this->model_doctos->insert_reg($idDocto, $idSiniestro);
- 		 	 redirect(base_url() . $this->model_doctos->doc_path($idSiniestro));
+ 		 	 redirect(site_url($this->model_doctos->doc_path($idSiniestro)));
 		 }
 		 if ($docresult == 0)
 		 {
-			 redirect(base_url() . 'base/historial/' . $id . '/S/error/' . $docresult);
+			 redirect(site_url('base/historial/' . $id . '/S/error/' . $docresult));
 		 }
 
 		 if ($docresult == 128)
 		 {
-			 redirect(base_url() . 'base/historial/' . $id . '/S/error/' . $docresult);
+			 redirect(site_url('base/historial/' . $id . '/S/error/' . $docresult));
 		 }
 
 		 if ($docresult == 255)
 		 {
-			 redirect(base_url() . 'base/historial/' . $id . '/S/error/' . $docresult);
+			 redirect(base_url('base/historial/' . $id . '/S/error/' . $docresult));
 		 }
 
 	}

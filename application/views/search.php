@@ -1,5 +1,5 @@
 <?php $this->load->view('header'); ?>
-<?php if(!$this->session->userdata('isLoggedIn')) redirect(base_url() . 'login'); ?>
+<?php if(!$this->session->userdata('isLoggedIn')) redirect(site_url('login')); ?>
 
 <body>
 
@@ -10,7 +10,7 @@
 
 <div class="bz">
   <div id="container">
-    <div id="header"><img width="982" src="<?php echo base_url();?>images/logo_.jpg" alt="Remates Reyco" title="Remates Reyco" /></div>
+    <div id="header"><img width="982" src="<?php echo site_url('images/logo_.jpg'); ?>" alt="Remates Reyco" title="Remates Reyco" /></div>
 <!-- menu principal -->
 <?php 
 
@@ -66,28 +66,6 @@ $this->load->view('menu'); ?>
 
 <div>
 
-<?php if ($historial['estado'] == 'Stock') { ?>
-  <!-- aqui va la solicitud de datos -->
-      <div id="dialog" title="Solicitud de modificaci&oacute;n de informaci&oacute;n">
-	<br />
-	<fieldset style="border-radius: 5px">
-	  <legend>Ingrese los datos requeridos a modificar</legend>
-		<?php echo form_open('update/update_send/' . $historial['id'], array('id' => 'update_send')); ?>
-		<input type="hidden" name="idInventario" value="<?php echo $historial['inventario']; ?>">
-		<table border=0 style="padding: 0px">
-   		<tr>
-		<td width="100%">Valor Indemnizado ($): </td><td><input class="decnumber" name="val_monto_indemnizado" value="<?php echo $historial['montoindem']; ?>"></td>
-		</tr><tr>
-		<td>Valor Minimo ($): </td><td> <input class="decnumber" name="val_monto_minimo" value="<?php echo $historial['montomin']; ?>"></td>
-		</tr><tr>
-		 <td>Incluir en proximo remate: </td><td> <input type="checkbox" name="val_prox_remate"></td>
-		</tr>
-		</table>
-		</form>
-	</fieldset>
-    </div>
-
-<?php } ?>
 </div>
 
 	</div>
@@ -106,7 +84,7 @@ $this->load->view('menu'); ?>
 	 <h4 style="font-size: 15px; font-weight: bold;">Criterios de busqueda</h4> 
 
 	<div>
-<?php echo form_open('base/search', array('method' => 'GET')); ?>
+<?php echo form_open(site_url('base/search'), array('method' => 'GET')); ?>
 <table border=0>
  <tr>
   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

@@ -26,7 +26,7 @@ class Update extends CI_Controller {
 			'val_monto_indemnizado' => str_replace('.','', $this->input->post('val_monto_indemnizado')),
 			'val_monto_minimo' => str_replace('.','', $this->input->post('val_monto_minimo')),
 			'val_prox_remate' => $this->input->post('val_prox_remate'),
-			'val_comentario' => str_replace(array("\r\n", "\r", "\n"), " ", $this->input->post('val_comentario')),
+			'val_comentario' => $this->input->post('val_comentario'),
 			'val_old_monto_indemnizado' => $this->dbmaint->get_value_of_col($id, 'montoindem'),
 			'val_old_monto_minimo' => $this->dbmaint->get_value_of_col($id, 'montomin'),
 			'val_old_comentario' => $this->dbmaint->get_value_of_col($id, 'comentario'),
@@ -34,22 +34,25 @@ class Update extends CI_Controller {
 			'val_placa' => $this->dbmaint->get_value_of_col($id, 'placa'),
 			'val_marca' => $this->dbmaint->get_value_of_col($id, 'marca'),
 			'val_modelo' => $this->dbmaint->get_value_of_col($id, 'modelo'),
-			'val_anno' => $this->dbmaint->get_value_of_col($id, 'anno'),
-			'val_siniestro' => $this->dbmaint->get_value_of_col($id,'siniestro'));
+			'val_anno' => $this->dbmaint->get_value_of_col($id, 'anno'));
 
 		if ($this->input->post('val_prox_remate') == 'on')
 			$item['val_prox_remate'] = true;
 		else
 			$item['val_prox_remate'] = false;
 
+		if ($this->input->post('val_aplicaiva') == 'on')
+			$item['val_aplicaiva'] = true;
+		else
+			$item['val_aplicaiva'] = false;
+
 		// insertar los registros almacenados
 
 		if ($item['val_monto_indemnizado'] == $item['val_old_monto_indemnizado'] && $item['val_monto_minimo'] == $item['val_old_monto_minimo'] && $item['val_comentario'] == $item['val_old_comentario']) {
-			redirect(base_url() . 'base/historial/' . $id . '/S/update/check'); }
+			redirect(site_url('base/historial/' . $id . '/S/update/check')); }
 		else {
-	
 		
-		$retval = $this->dbmaint->add_reg_feedback(array('idInventario' => $item['idInventario'], 'val_monto_indemnizado' => $item['val_monto_indemnizado'], 'val_monto_minimo' => $item['val_monto_minimo'], 'val_prox_remate' => $item['val_prox_remate'], 'val_comentario' => $item['val_comentario']));
+		$retval = $this->dbmaint->add_reg_feedback($item);
 
 		if ($retval) {
 			$this->model_update->genera_upload($retval);
@@ -58,16 +61,16 @@ class Update extends CI_Controller {
 				if ($this->config->item('debug_email') == true)
 					return 0;
 			
-			redirect(base_url() . 'base/historial/' . $id . '/S/update/success');
+			redirect(site_url('base/historial/' . $id . '/S/update/success'));
 		} else {
-			redirect(base_url() . 'base/historial/' . $id . '/S/update/error');
+			redirect(site_url('base/historial/' . $id . '/S/update/error'));
 		}
 
 		}
 
 		} else
 		{
-			redirect(base_url() . 'base/historial/' . $id . '/S/update/nodata');
+			redirect(site_url('base/historial/' . $id . '/S/update/nodata'));
 
 		}
 
@@ -91,8 +94,8 @@ class Update extends CI_Controller {
 
 			}
 
-			if ($level == 0) { log_message('debug', $result);
-				echo($result); }
+			if ($level == 0)
+				echo($result);
 
 			if ($level == 1)
 				$this->load->view('search', $opcion);
@@ -100,7 +103,7 @@ class Update extends CI_Controller {
 		}
 
 		else {
-			$opcion = array('estado' => 'S', 'historial' => '', 'result' => '', 'error' => '', 'success' => 'No se realiza ninguna acción.', 'login' => '', 'pattern' => 0);
+			$opcion = array('estado' => 'S', 'historial' => '', 'result' => '', 'error' => '', 'success' => 'No se realiza ninguna acci&oacute;n.', 'login' => '', 'pattern' => 0);
 			$this->load->view('base', $opcion);
 		
 		}

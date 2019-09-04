@@ -1,20 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head>
-<meta charset="utf-8">
-<title>Sistema de aseguradora de vehiculos</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Sistema de informaci&oacute;n para aseguradoras</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
-<link href="<?php echo base_url();?>css/blueimp-gallery.min.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url();?>css/jquery.datatables_themeroller.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url();?>css/jquery-ui.min.css" rel="stylesheet"/>
-<link href="<?php echo base_url();?>css/jqsimplemenu.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo base_url();?>css/private.css" rel="stylesheet" type="text/css" />
-<script src="<?php echo base_url();?>js/jquery-1.10.1.min.js"></script> 
-<script src="<?php echo base_url();?>js/jquery-ui.min.js"></script>
-<script src="<?php echo base_url();?>js/jquery.datatables.min.js"></script>
-<script src="<?php echo base_url();?>js/blueimp-gallery.min.js"></script>
-<script src="<?php echo base_url();?>js/jqsimplemenu.js"></script>
-<script src="<?php echo base_url();?>js/jquery.number.min.js"></script>
+<link href="<?php echo site_url('css/blueimp-gallery.min.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo site_url('css/jquery.datatables_themeroller.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo site_url('css/jquery-ui.min.css'); ?>" rel="stylesheet"/>
+<link href="<?php echo site_url('css/jqsimplemenu.css'); ?>" rel="stylesheet" type="text/css" />
+<link href="<?php echo site_url('css/private.css'); ?>" rel="stylesheet" type="text/css" />
+<script src="<?php echo site_url('js/jquery-1.10.1.min.js'); ?>"></script> 
+<script src="<?php echo site_url('js/jquery-ui.min.js'); ?>"></script>
+<script src="<?php echo site_url('js/jquery.datatables.min.js'); ?>"></script>
+<script src="<?php echo site_url('js/blueimp-gallery.min.js'); ?>"></script>
+<script src="<?php echo site_url('js/jqsimplemenu.js'); ?>"></script>
+<script src="<?php echo site_url('js/jquery.number.min.js'); ?>"></script>
 
 <script>
 
@@ -44,6 +44,7 @@ $(function() {
         	effect: "fade",
         	duration: 500
       	},
+      	resizable: false,
       	buttons: {
 	      "Enviar Datos": function () { $("#update_send").submit(); },
 	      "Cancelar": function () { dialog.dialog("close"); } 
@@ -57,7 +58,7 @@ $(function() {
 	$( "#button_fotos").button().on( "click", function() {
 	 		$('#preloader').fadeIn('fast');
 			$('#status').fadeIn('fast');
-			window.location='<?php echo base_url() . 'index.php/fotos2/procesa_fotos_pat/' . $historial['placa'] . '/' . $historial['id']; ?>';
+			window.location='<?php echo site_url('fotos2/procesa_fotos_pat/' . $historial['placa'] . '/' . $historial['id']);?>';
 	});
 
 
@@ -113,7 +114,7 @@ $(function() {
         	duration: 500
       	},
       	buttons: {
-	      "Cambiar Contraseña": function () {  $("#pwdcp_send").submit(); },
+	      "Cambiar ContraseÃ±a": function () {  $("#pwdcp_send").submit(); },
 	      "Cancelar": function () { dialog.dialog("close"); } 
       	}
     	});
@@ -130,7 +131,7 @@ $(function() {
 	"oLanguage": {
 		"sEmptyTable": "Los datos estan siendo procesados en la base de datos, espere un momento e intente nuevamente.",
 		"sInfo": "_START_ a _END_ de un total de _TOTAL_ Items",
-		"oPaginate": { sFirst:" « ", sLast:" » ", sNext:" › ",sPrevious:" ‹ "}
+		"oPaginate": { sFirst:" Â« ", sLast:" Â» ", sNext:" â€º ",sPrevious:" â€¹ "}
         }
 	});
 

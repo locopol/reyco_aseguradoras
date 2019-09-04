@@ -37,7 +37,10 @@ class Model_email extends CI_Model {
 		else
 			$item['val_prox_remate'] = 'No';
 
-
+		if ($item['val_aplicaiva'] == true)
+			$item['val_aplicaiva'] = 'Si';
+		else
+			$item['val_aplicaiva'] = 'No';
 
 		$connection = @fsockopen( $this->config->item('smtp_host'),  $this->config->item('smtp_port'));
 		if (is_resource($connection))
@@ -62,6 +65,7 @@ class Model_email extends CI_Model {
 		$message .= ' - Nuevo Monto Indemnizado: ' . $item['val_monto_indemnizado'] . "\r\n";
 		$message .= ' - Nuevo Monto Minimo: ' .  $item['val_monto_minimo'] . "\r\n";
 		$message .= ' - Incluir en proximo remate?: ' . $item['val_prox_remate']  . "\r\n";
+		$message .= ' - Aplica IVA?: ' . $item['val_aplicaiva']  . "\r\n";
 		$message .= ' - Comentario de compañia: ' .  $item['val_comentario'] . "\r\n\r\n";
 		$message .= 'Este cambio se procesará automaticamente en el sistema de remates cuando se revise la información del vehiculo.' . "\r\n\r\n";
 		$message .= 'Correo generado automaticamente por ' . $this->config->item('smtp_from_name');

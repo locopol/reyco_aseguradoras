@@ -22,7 +22,7 @@ $config['hostname_pdf'] = '200.73.6.197';
 $config['username_pdf']	= 'OMUNOZ';	# ftp username
 $config['password_pdf']	= 'Reyco.2241';# ftp password
 
-$config['rdir_pdf'] = '/remates/FAE_BSOFT/02/pdf/'; 			# ftp remote path
+$config['rdir_pdf'] = '/FAE_BSOFT/02/pdf/'; 			# ftp remote path
 $config['ldir_pdf'] = '/home/rematesr/public_html/aseguradoras/pdf/';  # ftp upload path
 $config['pdir_pdf'] = 'pdf/'; 		# relative path web 
 
@@ -54,8 +54,8 @@ $config['hash_batch'] = '3559a7e033fcfddf7f9657d3321d7823c403fced';
 $config['devel_name']    = 'Paul Asalgado';
 $config['devel_org']     = 'LionHeart';
 $config['devel_contact'] = 'paul.asalgado.ruz@gmail.com';
-$config['devel_ver']     = '4.7';
+$config['devel_ver']     = '4.8';
 $config['devel_lic']     = 'Reyco S.A.';
-$config['devel_tit']     = 'Sistema de Aseguradoras para multiples compañias.';
+$config['devel_tit']     = 'Sistema de Aseguradoras para multiples compa&ntilde;ias.';
 
 ?>
