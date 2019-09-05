@@ -18,9 +18,9 @@ $config['debug_ftp'] = FALSE;			# ftp debugging
 
 /* Configuracion para documentos PDF */
 
-$config['hostname_pdf'] = '200.73.6.197';
+$config['hostname_pdf'] = '200.73.6.198';
 $config['username_pdf']	= 'OMUNOZ';	# ftp username
-$config['password_pdf']	= 'Reyco.2241';# ftp password
+$config['password_pdf']	= 'Adm.0404*';# ftp password
 
 $config['rdir_pdf'] = '/FAE_BSOFT/02/pdf/'; 			# ftp remote path
 $config['ldir_pdf'] = '/home/rematesr/public_html/aseguradoras/pdf/';  # ftp upload path
