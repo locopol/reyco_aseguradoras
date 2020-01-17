@@ -6,7 +6,7 @@ $config['filedata_dir']     = '/home/rematesr/'; # ruta del archivo de datos
 $config['filedata_name']    = 'aseguradora_v4.csv'; # Nombre del archivo
 $config['filedata_tcampos'] = 37; # Largo de columnas del archivo CSV
 
-/* configuracion de conexión FTP al repositorio de imagenes */
+/* configuracion de conexion FTP al repositorio de imagenes */
 
 $config['hostname']  = 'reyco.mine.nu'; 	# ftp hostname
 $config['username']  = 'user_rematesr_integr';	# ftp username
@@ -35,15 +35,17 @@ $config['fileupload_debug']     = FALSE; 		# Activar debug para procesamiento de
 /* Configuracion servidor de correo */
 
 $config['smtp_host']      = 'mail.rematesreyco.cl';
-$config['smtp_port']      = '25';
+$config['smtp_port']      = '26';
 $config['smtp_user']      = 'relay@rematesreyco.cl';
 $config['smtp_pass']      = 'reyco4355';
 $config['smtp_from']      = 'relay@rematesreyco.cl';
 $config['smtp_from_name'] = 'Sistema Aseguradoras Reyco';
+//$config['smtp_crypto']    = 'tls'; 
 
 /* Notificaciones Update, incluir mas con comas */
 
-$config['update_to']   = 'gdeferari@rematesreyco.cl, carmijo@rematesreyco.cl, pbauerle@rematesreyco.cl';
+$config['update_to']   = 'carmijo@rematesreyco.cl';
+$config['update_cc']   = 'gdeferari@rematesreyco.cl,pbauerle@rematesreyco.cl,locopol@gmail.com';
 $config['debug_email'] = false;
 
 /* MD5 para ccron */
@@ -54,7 +56,7 @@ $config['hash_batch'] = '3559a7e033fcfddf7f9657d3321d7823c403fced';
 $config['devel_name']    = 'Paul Asalgado';
 $config['devel_org']     = 'LionHeart';
 $config['devel_contact'] = 'paul.asalgado.ruz@gmail.com';
-$config['devel_ver']     = '4.8';
+$config['devel_ver']     = '4.8.1';
 $config['devel_lic']     = 'Reyco S.A.';
 $config['devel_tit']     = 'Sistema de Aseguradoras para multiples compa&ntilde;ias.';
 

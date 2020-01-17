@@ -48,10 +48,13 @@ class Model_email extends CI_Model {
 
 		$this->email->set_newline("\r\n");
 		$this->email->from($this->config->item('smtp_from'), $this->config->item('smtp_from_name'));
-		$this->email->to($this->config->item('update_to'));
-
+		
 		if ($this->session->userdata('email') != null) 
-			$this->email->cc($this->session->userdata('email'));
+		    $this->email->to(array($this->config->item('update_to'), $this->session->userdata('email')));
+		else
+			$this->email->to($this->config->item('update_to'));
+				
+		$this->email->cc($this->config->item('update_cc'));
 
 		$this->email->subject('(Siniestro ' . $item['val_siniestro'] . ') solicitud de modificación aseguradoras.');
 
